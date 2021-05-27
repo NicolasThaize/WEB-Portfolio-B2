@@ -1,0 +1,36 @@
+{
+  "fr": {
+    "inputs": [
+       {
+         "id": 1,
+         "label": "Nom d'utilisateur",
+         "placeholder": "Ex: Nthaize",
+         "name": "username"
+      },
+      {
+        "id": 2,
+        "label": "Mot de passe",
+        "placeholder": "*********",
+        "name": "password"
+      }
+    ],
+    "submit": "Se connecter"
+  },
+  "en": {
+    "inputs": [
+      {
+        "id": 1,
+        "label": "Username",
+        "placeholder": "Ex: Nthaize",
+        "name": "username"
+      },
+      {
+        "id": 2,
+        "label": "Password",
+        "placeholder": "*********",
+        "name": "password"
+      }
+    ],
+    "submit": "Login"
+  }
+}
