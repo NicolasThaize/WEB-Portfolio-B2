@@ -39,12 +39,20 @@ class UserModule {
     return response;
   }
 
-  static async registerUser ({password, username, email}) {
-    await axiosInstance.post(`/users/`, {username: username, password: password, email: email}).then(r => {
-      return r.data
-    }).catch(error => {
-      console.log(error)
+  static async registerUser ({password, username, email, first_name, last_name}) {
+    let response;
+    await axiosInstance.post(`/users/`, {
+      username: username,
+      password: password,
+      email: email,
+      first_name: first_name,
+      last_name: last_name
+    }).then(r => {
+      response = r.data
+    }).catch(() => {
+      throw Object.assign(new Error("400"));
     })
+    return response
   }
 
 }

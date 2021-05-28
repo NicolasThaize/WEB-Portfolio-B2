@@ -10,20 +10,34 @@
       },
       {
         "id": 2,
+        "label": "Prénom: ",
+        "type": "text",
+        "placeholder": "Ex: Nicolas",
+        "name": "first_name"
+      },
+      {
+        "id": 3,
+        "label": "Nom: ",
+        "type": "text",
+        "placeholder": "Ex: THAIZE",
+        "name": "last_name"
+      },
+      {
+        "id": 4,
         "label": "Mot de passe: ",
         "type": "password",
         "placeholder": "*********",
         "name": "password"
       },
       {
-        "id": 3,
+        "id": 5,
         "label": "Confirmez votre mot de passe: ",
         "type": "password",
         "placeholder": "*********",
         "name": "confirmPassword"
       },
       {
-        "id": 4,
+        "id": 6,
         "label": "Adresse email: ",
         "type": "email",
         "placeholder": "Ex: nthaize@email.com",
@@ -35,6 +49,14 @@
         "empty": "Veuillez remplir le champ nom d'utilisateur.",
         "already_exist": "Nom d'utilisateur non disponible.",
         "not_valid": "Nom d'utilisateur non valide."
+      },
+      "first_name": {
+        "empty": "Veuillez remplir le champ prénom.",
+        "not_valid": "Prénom non valide."
+      },
+      "last_name": {
+        "empty": "Veuillez remplir le champ nom.",
+        "not_valid": "Nom non valide."
       },
       "email": {
         "empty": "Veuillez remplir le champ adresse email.",
@@ -50,9 +72,11 @@
         "empty": "Veuillez remplir le champ de confirmation du mot de passe.",
         "not_same": "Les mots de passe ne correspondent pas."
       },
-      "api_error": "Une erreur est survenue, elle sera résolue sous peu."
+      "api_error": "Une erreur est survenue, elle sera résolue sous peu.",
+      "bad_request_error": "Tout les champs de sont pas validés."
     },
-    "submit": "S'inscrire"
+    "submit": "S'inscrire",
+    "is_registered": "Le compte a bien été créé, regardez dans vos mails pour activer votre compte."
   },
   "en": {
     "inputs": [
@@ -65,20 +89,34 @@
       },
       {
         "id": 2,
+        "label": "First name: ",
+        "type": "text",
+        "placeholder": "Ex: Nicolas",
+        "name": "first_name"
+      },
+      {
+        "id": 3,
+        "label": "Last name: ",
+        "type": "text",
+        "placeholder": "Ex: THAIZE",
+        "name": "last_name"
+      },
+      {
+        "id": 4,
         "label": "Password: ",
         "type": "password",
         "placeholder": "*********",
         "name": "password"
       },
       {
-        "id": 3,
+        "id": 5,
         "label": "Confirm password: ",
         "type": "password",
         "placeholder": "*********",
         "name": "confirmPassword"
       },
       {
-        "id": 4,
+        "id": 6,
         "label": "Email address: ",
         "type": "email",
         "placeholder": "Ex: nthaize@email.com",
@@ -90,6 +128,14 @@
         "empty": "Username field should not be empty.",
         "already_exist": "This username is not available.",
         "not_valid": "This username is not valid."
+      },
+      "first_name": {
+        "empty": "First name field should not be empty.",
+        "not_valid": "This first name is not valid."
+      },
+      "last_name": {
+        "empty": "Last name field should not be empty.",
+        "not_valid": "This last name is not valid."
       },
       "email": {
         "empty": "Email field should not be empty.",
@@ -105,8 +151,10 @@
         "empty": "Password confirmation field should not be empty.",
         "not_same": "Password does not match."
       },
-      "api_error": "An error occured, this will be fixed soon."
+      "api_error": "An error occured, this will be fixed soon.",
+      "bad_request_error": "All fields are not filled."
     },
-    "submit": "Register"
+    "submit": "Register",
+    "is_registered": "Account successfully registered, check you email to activate your account."
   }
 }

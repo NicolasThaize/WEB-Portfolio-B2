@@ -3,6 +3,7 @@ import {UserContext} from "../../context";
 import text from "../../assets/texts/register.json";
 import UserModule from "../../UserModule";
 import dataValidation from "../../dataValidation";
+import {Redirect} from "react-router-dom";
 
 class Register extends React.Component{
   static contextType = UserContext;
@@ -20,7 +21,8 @@ class Register extends React.Component{
     errors: {},
     apiError: undefined,
     redirect: false,
-    loading: false
+    loading: false,
+    isRegistered: false
   }
 
   setError = (name, error) => {
@@ -30,9 +32,7 @@ class Register extends React.Component{
   }
 
   handleChange = (e) => {
-    let resetError = this.state.errors;
-    resetError[e.target.name] = undefined; // Clear current field errors
-    this.setState({errors: resetError});
+    this.setState({errors: {}});
 
     if (!e.target.value){ // if the entry is empty
       return this.setError(e.target.name, 'empty');
@@ -70,29 +70,34 @@ class Register extends React.Component{
 
   handleSubmit = async (e) => {
     e.preventDefault()
-    this.setState({errors: {}, loading: true})
-
+    this.setState({loading: true})
+    console.log(this.state.values)
     if (Object.keys(this.state.errors).length === 0){
-      await UserModule.registerUser(this.state.values).then(r => {
-        this.setState({loading: false, redirect: true})
-      }).catch(error => { // FAIRE CA
+      await UserModule.registerUser(this.state.values).then(() => {
+        this.setState({loading: false, isRegistered: true}, () => {
+          setTimeout(() => {
+            this.setState({redirect: true})
+          }, 5000);
+        })
+      }).catch(error => {
         this.setState({loading: false})
         switch (error.message){
-          case '401':
-            this.setState({apiError: this.state.text.user_not_found_error});
+          case '400':
+            this.setState({apiError: this.state.text.errors.bad_request_error});
             break;
           default:
-            this.setState({apiError: this.state.text.api_error});
+            this.setState({apiError: this.state.text.errors.api_error});
         }
       })
     }
   }
 
   render() {
-    const { text, errors, apiError, loading } = this.state;
+    const { text, errors, apiError, loading, redirect, isRegistered } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <p>{loading ? 'loading' : undefined}</p>
+        { redirect ? <Redirect to='/'/> : undefined }
+        {loading ? <p>'loading'</p> : undefined}
         {text.inputs.map(input => {
           return (
             <label key={input.id}>
@@ -108,7 +113,8 @@ class Register extends React.Component{
           )
         })}
         <button type='submit'>{text.submit}</button>
-        <p>{apiError ? apiError : undefined}</p>
+        { isRegistered ? <p>{text.is_registered}</p> : undefined}
+        {apiError ? <p>apiError</p> : undefined}
       </form>
     );
   }
