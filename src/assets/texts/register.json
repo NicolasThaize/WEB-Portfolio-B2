@@ -1,0 +1,112 @@
+{
+  "fr": {
+    "inputs": [
+      {
+        "id": 1,
+        "label": "Nom d'utilisateur: ",
+        "type": "text",
+        "placeholder": "Ex: Nthaize",
+        "name": "username"
+      },
+      {
+        "id": 2,
+        "label": "Mot de passe: ",
+        "type": "password",
+        "placeholder": "*********",
+        "name": "password"
+      },
+      {
+        "id": 3,
+        "label": "Confirmez votre mot de passe: ",
+        "type": "password",
+        "placeholder": "*********",
+        "name": "confirmPassword"
+      },
+      {
+        "id": 4,
+        "label": "Adresse email: ",
+        "type": "email",
+        "placeholder": "Ex: nthaize@email.com",
+        "name": "email"
+      }
+    ],
+    "errors": {
+      "username": {
+        "empty": "Veuillez remplir le champ nom d'utilisateur.",
+        "already_exist": "Nom d'utilisateur non disponible.",
+        "not_valid": "Nom d'utilisateur non valide."
+      },
+      "email": {
+        "empty": "Veuillez remplir le champ adresse email.",
+        "already_exist": "Adresse email non disponible.",
+        "not_valid": "Adresse email non valide."
+      },
+      "password": {
+        "empty": "Veuillez remplir le champ mot de passe.",
+        "not_valid": "Mot de passe non valide.",
+        "not_same": "Les mots de passe ne correspondent pas."
+      },
+      "confirmPassword": {
+        "empty": "Veuillez remplir le champ de confirmation du mot de passe.",
+        "not_same": "Les mots de passe ne correspondent pas."
+      },
+      "api_error": "Une erreur est survenue, elle sera résolue sous peu."
+    },
+    "submit": "S'inscrire"
+  },
+  "en": {
+    "inputs": [
+      {
+        "id": 1,
+        "label": "Username: ",
+        "type": "text",
+        "placeholder": "Ex: Nthaize",
+        "name": "username"
+      },
+      {
+        "id": 2,
+        "label": "Password: ",
+        "type": "password",
+        "placeholder": "*********",
+        "name": "password"
+      },
+      {
+        "id": 3,
+        "label": "Confirm password: ",
+        "type": "password",
+        "placeholder": "*********",
+        "name": "confirmPassword"
+      },
+      {
+        "id": 4,
+        "label": "Email address: ",
+        "type": "email",
+        "placeholder": "Ex: nthaize@email.com",
+        "name": "email"
+      }
+    ],
+    "errors": {
+      "username": {
+        "empty": "Username field should not be empty.",
+        "already_exist": "This username is not available.",
+        "not_valid": "This username is not valid."
+      },
+      "email": {
+        "empty": "Email field should not be empty.",
+        "already_exist": "This email address is not available.",
+        "not_valid": "This email address is not valid."
+      },
+      "password": {
+        "empty": "Password field should not be empty.",
+        "not_valid": "Mot de passe non valide.",
+        "not_same": "Password does not match."
+      },
+      "confirmPassword": {
+        "empty": "Password confirmation field should not be empty.",
+        "not_same": "Password does not match."
+      },
+      "api_error": "An error occured, this will be fixed soon."
+    },
+    "submit": "Register"
+  }
+}

@@ -10,24 +10,48 @@ import Navbar from "./components/NavbarComponents/Navbar";
 
 import UserModule from "./UserModule";
 import Login from "./components/LoginComponents/Login";
+import Register from "./components/RegisterComponents/Register";
+import axiosInstance from "./axiosApi";
 
 
 class App extends React.Component{
 
+  /**
+   * Set the language chosen, store info in localstorage
+   * @param language
+   */
   toggleLanguage = (language) => {
-    if (language === this.state.language){
-      return;
-    }
+    if (language === this.state.language){return;}
     localStorage.setItem("nthaize_language", language);
     this.setState(() => ({
       language: localStorage.getItem("nthaize_language")
-    }), () => {})
+    }))
+  }
+
+  loginUser = (refresh, access) => {
+    console.log(refresh, access, "hi")
+    axiosInstance.defaults.headers['Authorization'] = "JWT " + access;
+    localStorage.setItem('nthaize_access_token', access);
+    localStorage.setItem('nthaize_refresh_token', refresh);
+    this.setState({isLogged: true});
+  }
+
+  logoutUser = async () =>{
+    await axiosInstance.post('/blacklist/', {
+      "refresh_token": localStorage.getItem("nthaize_refresh_token")
+    });
+    localStorage.removeItem('nthaize_access_token');
+    localStorage.removeItem('nthaize_refresh_token');
+    axiosInstance.defaults.headers['Authorization'] = null;
+    this.setState({isLogged: false});
   }
 
   state = {
     isLogged: !!localStorage.getItem("nthaize_refresh_token"),
     language: localStorage.getItem("nthaize_language") ? localStorage.getItem("nthaize_language") : 'fr',
-    toggleLanguage: this.toggleLanguage
+    toggleLanguage: this.toggleLanguage,
+    loginUser: this.loginUser,
+    logoutUser: this.logoutUser
   }
 
   /**
@@ -47,7 +71,7 @@ class App extends React.Component{
 
   render() {
     return (
-      <UserContext.Provider value={{...UserModule.prototype.getUserData(), ...this.state}}>
+      <UserContext.Provider value={{...UserModule.getUserData(), ...this.state}}>
         <Router>
           <HelmetProvider>
             <main>
@@ -67,6 +91,7 @@ class App extends React.Component{
                 <Route exact path="/" component={Home} />
 
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
               </div>
             </main>
           </HelmetProvider>

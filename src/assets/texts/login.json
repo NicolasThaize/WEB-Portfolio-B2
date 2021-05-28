@@ -1,15 +1,21 @@
 {
   "fr": {
+    "username_error": "Veuillez remplir le champ nom d'utilisateur.",
+    "password_error": "Veuillez remplir le champ mot de passe.",
+    "user_not_found_error": "La combinaison nom d'utilisateur/mot de passe n'existe pas.",
+    "api_error": "Une erreur est survenue, elle sera résolue sous peu.",
     "inputs": [
        {
          "id": 1,
-         "label": "Nom d'utilisateur",
+         "label": "Nom d'utilisateur: ",
+         "type": "text",
          "placeholder": "Ex: Nthaize",
          "name": "username"
       },
       {
         "id": 2,
-        "label": "Mot de passe",
+        "label": "Mot de passe: ",
+        "type": "password",
         "placeholder": "*********",
         "name": "password"
       }
@@ -17,16 +23,22 @@
     "submit": "Se connecter"
   },
   "en": {
+    "username_error": "Username field should not be empty",
+    "password_error": "Password field should not be empty",
+    "user_not_found_error": "The specified user with this username/password does not exist.",
+    "api_error": "An error occured, this will be fixed soon.",
     "inputs": [
       {
         "id": 1,
-        "label": "Username",
+        "label": "Username: ",
+        "type": "text",
         "placeholder": "Ex: Nthaize",
         "name": "username"
       },
       {
         "id": 2,
-        "label": "Password",
+        "label": "Password: ",
+        "type": "password",
         "placeholder": "*********",
         "name": "password"
       }

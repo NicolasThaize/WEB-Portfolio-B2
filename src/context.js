@@ -6,7 +6,10 @@ const UserContext = React.createContext({
   first_name: undefined,
   last_name: undefined,
   language: 'en',
-  toggleLanguage: (language) => {}
+  isLogged: undefined,
+  toggleLanguage: (language) => {},
+  loginUser: (refresh, access) => {},
+  logoutUser: () => {}
 
 })
 

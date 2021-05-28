@@ -1,5 +1,5 @@
 import React from "react";
-import {UserContext} from '../context';
+import {UserContext} from '../../context';
 
 class Home extends React.Component {
   static contextType = UserContext;
