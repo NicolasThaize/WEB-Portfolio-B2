@@ -29,7 +29,6 @@ class App extends React.Component{
   }
 
   loginUser = (refresh, access) => {
-    console.log(refresh, access, "hi")
     axiosInstance.defaults.headers['Authorization'] = "JWT " + access;
     localStorage.setItem('nthaize_access_token', access);
     localStorage.setItem('nthaize_refresh_token', refresh);

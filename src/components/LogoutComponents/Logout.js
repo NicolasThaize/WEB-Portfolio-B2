@@ -1,8 +1,9 @@
 import React from "react";
 import {UserContext} from "../../context";
 import text from "../../assets/texts/logout.json";
+import {Redirect} from "react-router-dom";
 
-class NavbarIsLogged extends React.Component{
+class Logout extends React.Component{
   static contextType = UserContext;
   lang = this.context.language
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -13,17 +14,24 @@ class NavbarIsLogged extends React.Component{
   }
 
   state = {
-    text: text[this.lang]
+    text: text[this.lang],
+    redirect: false
+  }
+
+  handleLogout = () => {
+    this.context.logoutUser();
+    this.setState({redirect: true})
   }
 
   render() {
-    const { text } = this.state;
+    const { text , redirect} = this.state;
     return (
       <div>
-
+        { redirect ? <Redirect to='/' /> : undefined}
+        <button type='button' onClick={this.handleLogout}>{text.logout_button}</button>
       </div>
     );
   }
 }
 
-export default NavbarIsLogged;
+export default Logout;

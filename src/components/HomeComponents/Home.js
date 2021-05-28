@@ -5,7 +5,6 @@ class Home extends React.Component {
   static contextType = UserContext;
 
   componentDidMount() {
-    console.log(this.context)
   }
 
   render() {

@@ -61,7 +61,7 @@ class Login extends React.Component{
   }
 
   render() {
-    const { text, errors, apiError, loading, redirect, tokens } = this.state;
+    const { text, errors, apiError, loading, redirect } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         { redirect ? <Redirect to='/'/> : undefined }
