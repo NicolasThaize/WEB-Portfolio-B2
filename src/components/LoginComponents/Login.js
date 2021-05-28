@@ -48,10 +48,14 @@ class Login extends React.Component{
         this.context.loginUser(r.refresh, r.access)
         this.setState({loading: false, redirect: true})
       }).catch(error => {
+        console.log(error)
         this.setState({loading: false})
         switch (error.message){
           case '401':
             this.setState({apiError: this.state.text.user_not_found_error});
+            break;
+          case 'not_activated':
+            this.setState({apiError: this.state.text.user_not_activated});
             break;
           default:
             this.setState({apiError: this.state.text.api_error});

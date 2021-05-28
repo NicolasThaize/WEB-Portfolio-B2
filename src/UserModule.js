@@ -27,12 +27,19 @@ class UserModule {
   static async loginUser ({password, username}) {
     let response;
     await axiosInstance.post(`/token/obtain/`, {username: username, password: password}).then(r => {
+      const values = jwt(r.data.access);
+      if(values.is_verified === false){
+        throw Object.assign(new Error("not_activated"));
+      }
       response =  r.data;
     }).catch(error => {
+      if (error.message === 'not_activated'){
+        throw Object.assign(new Error("not_activated"));
+      }
       switch (error.detail){
         case 'No active account found with the given credentials':
             throw Object.assign(new Error("401"));
-          default:
+        default:
             throw Object.assign(new Error("unknown"));
       }
     })

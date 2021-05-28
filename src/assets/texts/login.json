@@ -4,6 +4,7 @@
     "password_error": "Veuillez remplir le champ mot de passe.",
     "user_not_found_error": "La combinaison nom d'utilisateur/mot de passe n'existe pas.",
     "api_error": "Une erreur est survenue, elle sera résolue sous peu.",
+    "user_not_activated": "Le compte est créé mais n'est pas activé, vérifiez vos mails.",
     "inputs": [
        {
          "id": 1,
@@ -27,6 +28,7 @@
     "password_error": "Password field should not be empty",
     "user_not_found_error": "The specified user with this username/password does not exist.",
     "api_error": "An error occured, this will be fixed soon.",
+    "user_not_activated": "The account is created but not activated, check your emails.",
     "inputs": [
       {
         "id": 1,
