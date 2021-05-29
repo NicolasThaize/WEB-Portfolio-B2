@@ -13,6 +13,7 @@ import Login from "./components/LoginComponents/Login";
 import Register from "./components/RegisterComponents/Register";
 import axiosInstance from "./axiosApi";
 import ToggleLanguageButtons from "./components/ContextComponents/ToggleLanguageButtons";
+import Admin from "./components/adminComponents/Admin";
 
 
 class App extends React.Component{
@@ -99,6 +100,9 @@ class App extends React.Component{
 
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+
+                <Route exact path="/admin" component={Admin} />
+
                 <ToggleLanguageButtons/>
               </div>
             </main>

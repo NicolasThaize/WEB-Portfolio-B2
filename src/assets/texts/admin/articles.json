@@ -1,0 +1,30 @@
+{
+  "fr": {
+    "buttons": {
+      "create": "Créer un article",
+      "show": "Voir",
+      "modify": "Modifier",
+      "delete": "Supprimer",
+      "private": "Privé",
+      "public": "Publique"
+    },
+    "errors": {
+      "get_articles": "Erreur lors de la récupération des données.",
+      "no_article": "Il n'y a aucun article."
+    }
+  },
+  "en": {
+    "buttons": {
+      "create": "Create an article",
+      "show": "Show",
+      "modify": "Modify",
+      "delete": "Delete",
+      "private": "Private",
+      "public": "Public"
+    },
+    "errors": {
+      "get_articles": "Error while retreviewing data.",
+      "no_article": "There is no articles."
+    }
+  }
+}

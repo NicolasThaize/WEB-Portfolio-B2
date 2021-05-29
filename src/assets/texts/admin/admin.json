@@ -1,0 +1,40 @@
+{
+  "fr": {
+    "menu": [
+      {
+        "id": 1,
+        "link": "articles",
+        "name": "Articles"
+      },
+      {
+        "id": 2,
+        "link": "comments",
+        "name": "Commentaires"
+      },
+      {
+        "id": 3,
+        "link": "users",
+        "name": "Utilisateurs"
+      }
+    ]
+  },
+  "en": {
+    "menu": [
+      {
+        "id": 1,
+        "link": "articles",
+        "name": "Articles"
+      },
+      {
+        "id": 2,
+        "link": "comments",
+        "name": "Comments"
+      },
+      {
+        "id": 3,
+        "link": "users",
+        "name": "Users"
+      }
+    ]
+  }
+}

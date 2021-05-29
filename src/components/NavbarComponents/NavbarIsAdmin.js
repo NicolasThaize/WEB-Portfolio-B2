@@ -1,6 +1,7 @@
 import React from "react";
 import {UserContext} from "../../context";
-import text from "../../assets/texts/navbar.json";
+import text from "../../assets/texts/admin/navbar_admin.json";
+import {Link} from "react-router-dom";
 
 class NavbarIsAdmin extends React.Component{
   static contextType = UserContext;
@@ -20,7 +21,7 @@ class NavbarIsAdmin extends React.Component{
     const { text } = this.state;
     return (
       <div>
-        Admin buttons
+        <Link to="/admin">{text.panel_button_name}</Link>
       </div>
     );
   }
