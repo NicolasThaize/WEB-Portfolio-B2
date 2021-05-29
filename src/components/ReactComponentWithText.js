@@ -1,8 +1,8 @@
 import React from "react";
-import {UserContext} from '../../context';
-import text from '../../assets/texts/home.json';
+import {UserContext} from "../context";
 
-class Home extends React.Component {
+let text = {};
+class ReactComponentWithText extends React.Component{
   static contextType = UserContext;
   lang = this.context.language
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -11,19 +11,9 @@ class Home extends React.Component {
       this.setState({text: text[this.context.language]})
     }
   }
-
   state = {
     text: text[this.lang]
   }
-
-  render() {
-    const { text } = this.state;
-    return (
-      <div>
-        {text.test}
-      </div>
-    );
-  }
 }
 
-export default Home;
+export default ReactComponentWithText;
