@@ -1,6 +1,7 @@
 import React from "react";
 import {UserContext} from "../../context";
 import text from "../../assets/texts/navbar.json";
+import Logout from "../LogoutComponents/Logout";
 
 class NavbarIsLogged extends React.Component{
   static contextType = UserContext;
@@ -22,6 +23,7 @@ class NavbarIsLogged extends React.Component{
     return (
       <div>
         {text.test} {this.context.username}
+        <Logout/>
       </div>
     );
   }

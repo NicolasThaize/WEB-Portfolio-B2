@@ -62,6 +62,15 @@ class UserModule {
     return response
   }
 
+  static async verifyAdmin (id) {
+    let response;
+    await axiosInstance.get(`/users/isadmin/${id}/`).then(r => {
+      response = r.data;
+    }).catch(error => {
+      throw Object.assign(new Error(error.code));
+    })
+    return response;
+  }
 }
 
 export default UserModule;

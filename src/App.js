@@ -12,6 +12,7 @@ import UserModule from "./UserModule";
 import Login from "./components/LoginComponents/Login";
 import Register from "./components/RegisterComponents/Register";
 import axiosInstance from "./axiosApi";
+import ToggleLanguageButtons from "./components/ContextComponents/ToggleLanguageButtons";
 
 
 class App extends React.Component{
@@ -32,7 +33,12 @@ class App extends React.Component{
     axiosInstance.defaults.headers['Authorization'] = "JWT " + access;
     localStorage.setItem('nthaize_access_token', access);
     localStorage.setItem('nthaize_refresh_token', refresh);
-    this.setState({isLogged: true});
+    this.setState({isLogged: true}, async () => {
+      const user = UserModule.getUserData();
+      await UserModule.verifyAdmin(user.id).then(r => {
+        if (r.code === 200) {this.setState({isAdmin: true})}
+      }).catch(() => {this.setState({isAdmin: false})})
+    });
   }
 
   logoutUser = async () =>{
@@ -60,10 +66,12 @@ class App extends React.Component{
    */
   componentDidMount() {
     const isLogged = !!localStorage.getItem("nthaize_refresh_token");
-    this.setState({isLogged: isLogged} , () => {
+    this.setState({isLogged: isLogged} , async () => {
       if (this.state.isLogged){
-        //const user = UserModule.prototype.getUserData();
-        //this.setState({isAdmin: user.admin})
+        const user = UserModule.getUserData();
+        await UserModule.verifyAdmin(user.id).then(r => {
+          if (r.code === 200) {this.setState({isAdmin: true})}
+        }).catch(() => {this.setState({isAdmin: false})})
       }
     });
   }
@@ -91,6 +99,7 @@ class App extends React.Component{
 
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <ToggleLanguageButtons/>
               </div>
             </main>
           </HelmetProvider>

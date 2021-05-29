@@ -1,11 +1,8 @@
 import React from "react";
-import NavbarIsLogged from "./NavbarIsLogged";
-import NavbarNotLogged from "./NavbarNotLogged";
-import NavbarIsAdmin from "./NavbarIsAdmin";
 import {UserContext} from "../../context";
 import text from "../../assets/texts/navbar.json";
 
-class Navbar extends React.Component {
+class NavbarIsAdmin extends React.Component{
   static contextType = UserContext;
   lang = this.context.language
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -23,14 +20,10 @@ class Navbar extends React.Component {
     const { text } = this.state;
     return (
       <div>
-        <div>
-          { this.context.language }
-          { this.context.isLogged ? <NavbarIsLogged/> : <NavbarNotLogged/> }
-          { this.context.isAdmin ? <NavbarIsAdmin/> : undefined }
-        </div>
+        Admin buttons
       </div>
     );
   }
 }
 
-export default Navbar;
+export default NavbarIsAdmin;
