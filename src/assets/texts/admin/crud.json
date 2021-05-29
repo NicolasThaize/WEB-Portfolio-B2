@@ -1,0 +1,13 @@
+{
+  "fr": {
+    "show": "Voir",
+    "modify": "Modifier",
+    "delete": "Supprimer"
+  },
+  "en": {
+    "show": "Show",
+    "modify": "Modify",
+    "delete": "Delet"
+  }
+}
+

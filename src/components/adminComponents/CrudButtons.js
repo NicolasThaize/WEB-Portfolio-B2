@@ -1,6 +1,6 @@
 import React from "react";
 import {UserContext} from "../../context";
-import text from "../../assets/texts/navbar.json";
+import text from "../../assets/texts/admin/crud.json";
 
 class CrudButtons extends React.Component{
   static contextType = UserContext;
@@ -32,9 +32,9 @@ class CrudButtons extends React.Component{
     const { text } = this.state;
     return (
       <div>
-        { this.props.showFunc ? <button onClick={this.showButton}>Voir</button> : undefined }
-        { this.props.modifyFunc ? <button onClick={this.modifyButton}>Modif</button> : undefined }
-        { this.props.deleteFunc ? <button onClick={this.deleteButton}>Supprimer</button> : undefined }
+        { this.props.showFunc ? <button onClick={this.showButton}>{text.show}</button> : undefined }
+        { this.props.modifyFunc ? <button onClick={this.modifyButton}>{text.modify}</button> : undefined }
+        { this.props.deleteFunc ? <button onClick={this.deleteButton}>{text.delete}</button> : undefined }
       </div>
     );
   }
