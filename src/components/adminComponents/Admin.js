@@ -15,7 +15,7 @@ class Admin extends React.Component{
 
   state = {
     text: text[this.lang],
-    current: ''
+    current: 'articles'
   }
 
 
