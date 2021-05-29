@@ -2,7 +2,7 @@ import React from "react";
 import {UserContext} from "../../../context";
 import text from "../../../assets/texts/admin/articles.json";
 import ArticlesModule from "../../../ArticlesModule";
-import CrudButtons from "../CrudButtons";
+import Pagination from "../Pagination";
 
 class AdminArticle extends React.Component{
   static contextType = UserContext;
@@ -20,6 +20,18 @@ class AdminArticle extends React.Component{
     error: ''
   }
 
+  /**
+   * After mount get all articles and set it to 'articles'
+   * @returns {Promise<void>}
+   */
+  async componentDidMount() {
+    await ArticlesModule.getAllArticles().then(r => {
+      this.setState({articles: r});
+    }).catch(() => {
+      this.setState({error: text.error.get_articles});
+    })
+  }
+
   getAllArticles = async () => {
     await ArticlesModule.getAllArticles().then(r => {
       this.setState({articles: r})
@@ -28,35 +40,31 @@ class AdminArticle extends React.Component{
     })
   }
 
-  /**
-   * After mount get all articles and set it to 'articles'
-   * @returns {Promise<void>}
-   */
-  async componentDidMount() {
-    await ArticlesModule.getAllArticles().then(r => {
-      this.setState({articles: r})
-    }).catch(() => {
-      this.setState({error: text.error.get_articles})
-    })
+  showFunc = (article) => {
+    console.log("show", article)
   }
 
-  showFunc = () => {
-    console.log('seee')
+  mofigyFunc = (article) => {
+    console.log("modify", article)
+  }
+
+  deleteFunc = (article) => {
+    console.log("delete", article)
   }
 
 
   render() {
     const { text, articles, error } = this.state;
+
     return (
       <div>
         {error ? <p>{error}</p> : undefined}
-        { articles.map(article => (
-          <div key={article.id}>
-            {article.sanitized_html}
-            {article.author}
-          </div>
-        ))}
-        <CrudButtons showFunc={this.showFunc}/>
+        { articles.length > 0 ?
+          <Pagination
+            array={articles}
+            fields={['id','title','author']}
+            crud={{show: this.showFunc, modify: this.mofigyFunc, delete: this.deleteFunc}}
+          /> : <p>{text.no_article}</p> }
       </div>
     );
   }
