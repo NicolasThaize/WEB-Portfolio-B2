@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
         if (error.response.data.code === "token_not_valid" &&
             error.response.status === 401 &&
             error.response.statusText === "Unauthorized") {
-            const refreshToken = localStorage.getItem('refresh_token');
+            const refreshToken = localStorage.getItem('nthaize_refresh_token');
 
             if (refreshToken) {
                 const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
@@ -48,7 +48,7 @@ axiosInstance.interceptors.response.use(
 
                             return axiosInstance(originalRequest);
                         })
-                        .catch(err => {
+                        .catch(() => {
                         });
                 } else {
                     window.location.href = '/login/'; // Refresh token expired
