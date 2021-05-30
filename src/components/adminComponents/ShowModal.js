@@ -39,7 +39,7 @@ class ShowModal extends React.Component{
           <span className="close" onClick={this.props.toggle}>&times;</span>
           <div>
             {fields.map(field => (
-              <div>
+              <div key={field.name}>
                 <p><strong>{field.label}</strong>{selected[field.name].toString()}</p>
               </div>
             ))}
