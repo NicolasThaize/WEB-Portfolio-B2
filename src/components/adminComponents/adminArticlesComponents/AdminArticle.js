@@ -3,6 +3,7 @@ import {UserContext} from "../../../context";
 import text from "../../../assets/texts/admin/articles.json";
 import ArticlesModule from "../../../ArticlesModule";
 import Pagination from "../Pagination";
+import ShowModal from "../ShowModal";
 
 class AdminArticle extends React.Component{
   static contextType = UserContext;
@@ -17,7 +18,9 @@ class AdminArticle extends React.Component{
   state = {
     text: text[this.lang],
     articles: [],
-    error: ''
+    error: '',
+    isShown: false,
+    selectedArticle: ''
   }
 
   /**
@@ -41,7 +44,11 @@ class AdminArticle extends React.Component{
   }
 
   showFunc = (article) => {
-    console.log("show", article)
+    this.setState({selectedArticle: article});
+    this.triggerShow();
+  }
+  triggerShow = () => {
+    this.setState({isShown: !this.state.isShown});
   }
 
   mofigyFunc = (article) => {
@@ -54,7 +61,7 @@ class AdminArticle extends React.Component{
 
 
   render() {
-    const { text, articles, error } = this.state;
+    const { text, articles, error, isShown, selectedArticle } = this.state;
 
     return (
       <div>
@@ -65,6 +72,7 @@ class AdminArticle extends React.Component{
             fields={text.fields}
             crud={{show: this.showFunc, modify: this.mofigyFunc, delete: this.deleteFunc}}
           /> : <p>{text.no_article}</p> }
+        { isShown ? <ShowModal selected={selectedArticle} toggle={this.triggerShow} fields={text.all_fields}/> : undefined}
       </div>
     );
   }
