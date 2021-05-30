@@ -10,7 +10,25 @@ class Pagination extends React.Component{
   // array: The array that will be processed into pagination (ex: [{},{},{}])
   // crud: The array that will be processed to know which crud button needs to be rendered and what it does when pressed
   // (if method specified: button exists, ex: {{show: this.showFunc, modify: this.mofifyFunc, delete: this.deleteFunc}})
-  // Full example of usage: <Pagination array={articles} fields={['id','title','author']} crud={{show: this.showFunc}}/>
+  // Full example of usage:
+  // <Pagination
+  //       array={articles}
+  //       fields={[
+  //       {
+  //         "name":  "id",
+  //         "label":  "ID: "
+  //       },
+  //       {
+  //         "name":  "title",
+  //         "label":  "Title: "
+  //       },
+  //       {
+  //         "name":  "author",
+  //         "label":  "Author: "
+  //       }
+  //     ]}
+  //     crud={{show: this.showFunc}}
+  // />
 
 
   state = {
@@ -19,6 +37,10 @@ class Pagination extends React.Component{
     currentPage: 1,
     shownObjects: [],
     fields: this.props.fields
+  }
+
+  static getDerivedStateFromProps(props, state){
+    return state.fields = props.fields
   }
 
   componentDidMount() {
@@ -56,7 +78,7 @@ class Pagination extends React.Component{
         {shownObjects.map(object => (
           <div key={object.id}>
             { fields.map(field => (
-              <p key={object.id + field}>{field}: {object[field]}</p>
+              <p key={object.id + field.name}>{field.label}{object[field.name]}</p>
             ))}
             <CrudButtons
               showFunc={this.props.crud.show ? () => this.props.crud.show(object) : undefined}

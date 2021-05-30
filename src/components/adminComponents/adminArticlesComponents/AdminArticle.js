@@ -62,7 +62,7 @@ class AdminArticle extends React.Component{
         { articles.length > 0 ?
           <Pagination
             array={articles}
-            fields={['id','title','author']}
+            fields={text.fields}
             crud={{show: this.showFunc, modify: this.mofigyFunc, delete: this.deleteFunc}}
           /> : <p>{text.no_article}</p> }
       </div>

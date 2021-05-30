@@ -11,7 +11,21 @@
     "errors": {
       "get_articles": "Erreur lors de la récupération des données.",
       "no_article": "Il n'y a aucun article."
-    }
+    },
+    "fields": [
+      {
+        "name":  "id",
+        "label":  "ID: "
+      },
+      {
+        "name":  "title",
+        "label":  "Titre: "
+      },
+      {
+        "name":  "author",
+        "label":  "Auteur: "
+      }
+    ]
   },
   "en": {
     "buttons": {
@@ -25,6 +39,20 @@
     "errors": {
       "get_articles": "Error while retreviewing data.",
       "no_article": "There is no articles."
-    }
+    },
+    "fields": [
+      {
+        "name":  "id",
+        "label":  "ID: "
+      },
+      {
+        "name":  "title",
+        "label":  "Title: "
+      },
+      {
+        "name":  "author",
+        "label":  "Author: "
+      }
+    ]
   }
 }
