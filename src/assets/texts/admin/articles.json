@@ -28,36 +28,19 @@
     ],
     "all_fields": [
       {
-        "name":  "id",
-        "label":  "ID: "
-      },
-      {
         "name":  "title",
-        "label":  "Titre: "
-      },
-      {
-        "name":  "author",
-        "label":  "Auteur: "
-      },
-      {
-        "name":  "slug",
-        "label":  "Slug: "
+        "label":  "Titre: ",
+        "type": "text"
       },
       {
         "name":  "sanitized_html",
-        "label":  "Apercu: "
-      },
-      {
-        "name":  "created_at",
-        "label":  "Créé le: "
-      },
-      {
-        "name":  "updated_at",
-        "label":  "Mis à jour le: "
+        "label":  "Apercu: ",
+        "type": "editor"
       },
       {
         "name":  "is_public",
-        "label":  "Est publique ?: "
+        "label":  "Est publique ?: ",
+        "type": "radio"
       }
     ]
   },
@@ -90,36 +73,19 @@
     ],
     "all_fields": [
       {
-        "name":  "id",
-        "label":  "ID: "
-      },
-      {
         "name":  "title",
-        "label":  "Title: "
-      },
-      {
-        "name":  "author",
-        "label":  "Author: "
-      },
-      {
-        "name":  "slug",
-        "label":  "Slug: "
+        "label":  "Title: ",
+        "type": "text"
       },
       {
         "name":  "sanitized_html",
-        "label":  "Peek: "
-      },
-      {
-        "name":  "created_at",
-        "label":  "Created the: "
-      },
-      {
-        "name":  "updated_at",
-        "label":  "Updated the: "
+        "label":  "Peek: ",
+        "type": "editor"
       },
       {
         "name":  "is_public",
-        "label":  "Is public ?: "
+        "label":  "Is public ?: ",
+        "type": "radio"
       }
     ]
   }

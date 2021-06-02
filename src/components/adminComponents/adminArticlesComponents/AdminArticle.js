@@ -4,6 +4,7 @@ import text from "../../../assets/texts/admin/articles.json";
 import ArticlesModule from "../../../ArticlesModule";
 import Pagination from "../Pagination";
 import ShowModal from "../ShowModal";
+import ModifyModal from "../ModifyModal";
 
 class AdminArticle extends React.Component{
   static contextType = UserContext;
@@ -20,6 +21,8 @@ class AdminArticle extends React.Component{
     articles: [],
     error: '',
     isShown: false,
+    isModify: false,
+    isDelete: false,
     selectedArticle: ''
   }
 
@@ -51,17 +54,20 @@ class AdminArticle extends React.Component{
     this.setState({isShown: !this.state.isShown});
   }
 
-  mofigyFunc = (article) => {
-    console.log("modify", article)
+  mofifyFunc = (article) => {
+    this.setState({selectedArticle: article});
+    this.triggerModify();
   }
-
+  triggerModify = () => {
+    this.setState({isModify: !this.state.isModify});
+  }
   deleteFunc = (article) => {
     console.log("delete", article)
   }
 
 
   render() {
-    const { text, articles, error, isShown, selectedArticle } = this.state;
+    const { text, articles, error, isShown, selectedArticle, isModify } = this.state;
 
     return (
       <div>
@@ -70,9 +76,10 @@ class AdminArticle extends React.Component{
           <Pagination
             array={articles}
             fields={text.fields}
-            crud={{show: this.showFunc, modify: this.mofigyFunc, delete: this.deleteFunc}}
+            crud={{show: this.showFunc, modify: this.mofifyFunc, delete: this.deleteFunc}}
           /> : <p>{text.no_article}</p> }
         { isShown ? <ShowModal selected={selectedArticle} toggle={this.triggerShow} fields={text.all_fields}/> : undefined}
+        { isModify ? <ModifyModal selected={selectedArticle} toggle={this.triggerModify} fields={text.all_fields}/> : undefined}
       </div>
     );
   }

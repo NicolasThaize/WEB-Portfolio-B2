@@ -1,0 +1,14 @@
+{
+  "fr": {
+    "radio": {
+      "yes": "Oui",
+      "no": "Non"
+    }
+  },
+  "en": {
+    "radio": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  }
+}
