@@ -35,6 +35,16 @@ class ShowModal extends React.Component{
   //       }
   //     ]}
   //     toggle={this.toggleModal}
+  //     multiSelectValues={[
+  //        {
+  //          "id": 1,
+  //          "remains": "blabla"
+  //        },
+  //        {
+  //          "id": 2,
+  //          "remains": "blabla"
+  //        },
+  //     ]}
   // />
 
   handleEditorChange = (e, name) => {
