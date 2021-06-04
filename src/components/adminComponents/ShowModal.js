@@ -38,20 +38,20 @@ class ShowModal extends React.Component{
         <div className="modal-content">
           <span className="close" onClick={this.props.toggle}>&times;</span>
           <div>
-            {fields.map(field => {
+            {fields.map((field, index) => {
               if (field.name === 'categories') {
                 return (
-                  <div key={field.name}>
+                  <div key={index}>
                     <p><strong>{field.label}</strong>
                     { selected[field.name].map((select, index) => {
-                      return <span key={field.id}>{select.name}{index === selected[field.name].length-1 ? undefined : ','}</span>
+                      return <span key={index}>{select.name}{index === selected[field.name].length-1 ? undefined : ','}</span>
                     })}
                     </p>
                   </div>
                 )
               } else {
                 return (
-                  <div key={field.name}>
+                  <div key={index}>
                     <p><strong>{field.label}</strong>{selected[field.name].toString()}</p>
                   </div>
                 )

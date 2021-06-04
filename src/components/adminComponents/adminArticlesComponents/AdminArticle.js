@@ -25,7 +25,12 @@ class AdminArticle extends React.Component{
     isModify: false,
     isDelete: false,
     selectedArticle: '',
-    categories: []
+    categories: [],
+    loading: false
+  }
+
+  toggleLoading = () => {
+    this.setState({loading: this.state.loading})
   }
 
   /**
@@ -33,6 +38,7 @@ class AdminArticle extends React.Component{
    * @returns {Promise<void>}
    */
   async componentDidMount() {
+    this.toggleLoading()
     await ArticlesModule.getAllArticles().then(r => {
       this.setState({articles: r});
     }).catch(() => {
@@ -40,14 +46,17 @@ class AdminArticle extends React.Component{
     })
     await CategoriesModule.getAllCategories().then(r => {
       this.setState({categories: r})
+      this.toggleLoading()
     }).catch(() => {
       this.setState({error: text.error.get_categories});
     })
   }
 
   getAllArticles = async () => {
+    this.toggleLoading()
     await ArticlesModule.getAllArticles().then(r => {
       this.setState({articles: r});
+      this.toggleLoading()
     }).catch(() => {
       this.setState({error: text.error.get_articles});
     })
@@ -73,15 +82,14 @@ class AdminArticle extends React.Component{
     this.setState({isModify: !this.state.isModify});
   }
   apiModify = async (article) => {
-    this.setState({updateLoading: true})
     let categories = [];
     for (const category of article.categories){
       categories.push(category.id);
     }
     article.categories = categories;
-    await ArticlesModule.updateArticle(article.id, article).then(r => {
-      console.log(r)
-      this.setState({updateLoading: false})
+    this.toggleLoading()
+    await ArticlesModule.updateArticle(article.id, article).then(() => {
+      this.toggleLoading()
       this.triggerModify();
       this.getAllArticles();
     }).catch(() => {
@@ -93,14 +101,22 @@ class AdminArticle extends React.Component{
 
   deleteFunc = (article) => {
     console.log("delete", article)
+    this.toggleLoading()
+    ArticlesModule.deleteArticle(article).then(() => {
+      this.toggleLoading()
+      this.getAllArticles();
+    }).catch(() => {
+      this.setState({error: text.error.delete_article});
+    })
   }
 
 
   render() {
-    const { text, articles, error, isShown, selectedArticle, isModify, categories } = this.state;
+    const { text, articles, error, isShown, selectedArticle, isModify, categories, loading } = this.state;
     return (
       <div>
         {error ? <p>{error}</p> : undefined}
+        {loading ? <p>{loading}</p> : undefined}
         { articles.length > 0 ?
           <Pagination
             array={articles}

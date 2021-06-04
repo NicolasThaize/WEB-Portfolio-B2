@@ -37,8 +37,11 @@ class ShowModal extends React.Component{
   //     toggle={this.toggleModal}
   // />
 
-  handleEditorChange = () => {
-
+  handleEditorChange = (e, name) => {
+    let value = e.target.getContent()
+    let newInputs = this.state.selected;
+    newInputs[name] = value
+    this.setState({values: newInputs, selected: newInputs});
   }
 
   /**
@@ -84,7 +87,6 @@ class ShowModal extends React.Component{
                   <div key={field.name}>
                     <Editor
                       initialValue={selected[field.name]}
-                      tagName={field.name}
                       init={{
                         height: 500,
                         menubar: false,
@@ -99,7 +101,7 @@ class ShowModal extends React.Component{
                           'alignleft aligncenter alignright | ' +
                           'bullist numlist outdent indent | help'
                       }}
-                      onChange={this.handleEditorChange}
+                      onBlur={e => this.handleEditorChange(e, field.name)}
                     />
                   </div>
                 )
