@@ -8,10 +8,6 @@ class TextInput extends React.Component{
     onChange: this.props.handleChange
   }
 
-  componentDidMount() {
-    console.log(this.state)
-  }
-
   static getDerivedStateFromProps(props, state){
     return state.value = props.value
   }

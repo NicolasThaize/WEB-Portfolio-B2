@@ -4,6 +4,7 @@ import "../../assets/css/modal.min.css";
 import {Editor} from "@tinymce/tinymce-react";
 import TextInput from "./TextInput";
 import RadioTrueFalseInput from "./RadioTrueFalseInput";
+import MultipleSelectInput from "./MultipleSelectInput";
 
 class ShowModal extends React.Component{
   static contextType = UserContext;
@@ -11,7 +12,8 @@ class ShowModal extends React.Component{
   state = {
     selected: this.props.selected,
     fields: this.props.fields,
-    values: {}
+    values: {},
+    multiSelectValues: this.props.multiSelectValues
   }
 
   // Props explanation:
@@ -35,9 +37,25 @@ class ShowModal extends React.Component{
   //     toggle={this.toggleModal}
   // />
 
-
   handleEditorChange = () => {
 
+  }
+
+  /**
+   * Once a option is selected or not add or remove the value from selectedChallenges array
+   * @param e
+   */
+  handleSelectChange = (e) => {
+    let selected = [];
+    for (const option of e.target.options)
+    {
+      if (option.selected) {
+        selected.push({id: parseInt(option.value)});
+      }
+    }
+    let newInputs = this.state.selected;
+    newInputs[e.target.name] = selected
+    this.setState({values: newInputs, selected: newInputs});
   }
 
   handleChange = (e) => {
@@ -54,7 +72,7 @@ class ShowModal extends React.Component{
   }
 
   render() {
-    const { selected, fields } = this.state;
+    const { selected, fields, multiSelectValues } = this.state;
     return (
       <div id="myModal" className="modal">
         <div className="modal-content">
@@ -102,6 +120,20 @@ class ShowModal extends React.Component{
                   )
               }
 
+              if (field.type === "categories"){
+                return (
+                  <div key={field.name}>
+                    <MultipleSelectInput
+                      label={field.label}
+                      name={field.name}
+                      value={selected[field.name]}
+                      handleChange={this.handleSelectChange}
+                      values={multiSelectValues}
+                    />
+                  </div>
+                )
+              }
+
               return (
                 <div key={field.name}>
                   <label>
@@ -112,6 +144,7 @@ class ShowModal extends React.Component{
               )
             })}
           </div>
+          <button type='button' onClick={() => this.props.returnToParent(selected)}>tete</button>
         </div>
       </div>
     );

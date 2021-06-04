@@ -40,7 +40,21 @@ class Pagination extends React.Component{
   }
 
   static getDerivedStateFromProps(props, state){
+    state.objects = props.array
+    state.fields = props.fields
     return state.fields = props.fields
+  }
+
+  /**
+   * To update objects if data is reloaded in parent component
+   * @param prevProps
+   * @param prevState
+   * @param snapshot
+   */
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.array !== this.state.objects){
+      return this.setArticlePages()
+    }
   }
 
   componentDidMount() {

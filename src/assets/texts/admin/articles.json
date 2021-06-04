@@ -10,7 +10,9 @@
     },
     "errors": {
       "get_articles": "Erreur lors de la récupération des données.",
-      "no_article": "Il n'y a aucun article."
+      "get_categories": "Erreur lors de la récupération des données.",
+      "no_article": "Il n'y a aucun article.",
+      "update_article": "Il y a eut une erreur lors de la mise à jour de l'article."
     },
     "fields": [
       {
@@ -41,6 +43,11 @@
         "name":  "is_public",
         "label":  "Est publique ?: ",
         "type": "radio"
+      },
+      {
+        "name":  "categories",
+        "label":  "Catégories: ",
+        "type": "categories"
       }
     ]
   },
@@ -55,7 +62,9 @@
     },
     "errors": {
       "get_articles": "Error while retreviewing data.",
-      "no_article": "There is no articles."
+      "get_categories": "Error while retreviewing data.",
+      "no_article": "There is no articles.",
+      "update_article": "There was an error updating the article."
     },
     "fields": [
       {
@@ -86,6 +95,11 @@
         "name":  "is_public",
         "label":  "Is public ?: ",
         "type": "radio"
+      },
+      {
+        "name":  "categories",
+        "label":  "Categories: ",
+        "type": "categories"
       }
     ]
   }
