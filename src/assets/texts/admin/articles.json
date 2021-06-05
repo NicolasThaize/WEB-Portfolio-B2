@@ -14,7 +14,8 @@
       "no_article": "Il n'y a aucun article.",
       "update_article": "Il y a eut une erreur lors de la mise à jour de l'article.",
       "delete_article": "Il y a eut une erreur lors de la suppression de l'article.",
-      "create_article": "Il y a eut une erreur lors de la création de l'article."
+      "create_article": "Il y a eut une erreur lors de la création de l'article.",
+      "empty_fields": "Tout les champs ne sont pas complétés."
     },
     "fields": [
       {
@@ -68,7 +69,8 @@
       "no_article": "There is no articles.",
       "update_article": "There was an error updating the article.",
       "delete_article": "There was an error deleting the article.",
-      "create_article": "There was an error creating the article."
+      "create_article": "There was an error creating the article.",
+      "empty_fields": "All fields are not filled."
     },
     "fields": [
       {

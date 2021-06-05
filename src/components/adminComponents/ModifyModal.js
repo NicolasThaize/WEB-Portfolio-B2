@@ -13,7 +13,15 @@ class ShowModal extends React.Component{
     selected: this.props.selected,
     fields: this.props.fields,
     values: {},
-    multiSelectValues: this.props.multiSelectValues
+    multiSelectValues: this.props.multiSelectValues,
+    errors: this.props.errors
+  }
+
+  static getDerivedStateFromProps(props, state){
+    if (props.errors === undefined){
+      return state.errors = ''
+    }
+    return state.errors = props.errors
   }
 
   // Props explanation:
@@ -85,7 +93,7 @@ class ShowModal extends React.Component{
   }
 
   render() {
-    const { selected, fields, multiSelectValues } = this.state;
+    const { selected, fields, multiSelectValues, errors} = this.state;
     return (
       <div id="myModal" className="modal">
         <div className="modal-content">
@@ -156,6 +164,7 @@ class ShowModal extends React.Component{
               )
             })}
           </div>
+          {errors ? <p className='basicError'>{errors}</p> : undefined}
           <button type='button' onClick={() => this.props.returnToParent(selected)}>tete</button>
         </div>
       </div>

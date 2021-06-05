@@ -28,7 +28,8 @@ class AdminArticle extends React.Component{
     isCreate: false,
     selectedArticle: '',
     categories: [],
-    loading: false
+    loading: false,
+    subErrors: ''
   }
 
   toggleLoading = () => {
@@ -44,13 +45,13 @@ class AdminArticle extends React.Component{
     await ArticlesModule.getAllArticles().then(r => {
       this.setState({articles: r});
     }).catch(() => {
-      this.setState({error: text.errors.get_articles});
+      this.setState({error: this.state.text.errors.get_articles});
     })
     await CategoriesModule.getAllCategories().then(r => {
       this.setState({categories: r})
       this.toggleLoading()
     }).catch(() => {
-      this.setState({error: text.errors.get_categories});
+      this.setState({error: this.state.text.errors.get_categories});
     })
   }
 
@@ -60,7 +61,7 @@ class AdminArticle extends React.Component{
       this.setState({articles: r});
       this.toggleLoading()
     }).catch(() => {
-      this.setState({error: text.errors.get_articles});
+      this.setState({error: this.state.text.errors.get_articles});
     })
   }
 
@@ -81,10 +82,14 @@ class AdminArticle extends React.Component{
     this.triggerModify();
   }
   triggerModify = () => {
+    this.resetSubErrors()
     this.setState({isModify: !this.state.isModify});
   }
   apiModify = async (article) => {
     let categories = [];
+    if (!article.title || !article.sanitized_html || !article.is_public || !article.categories){
+      return this.setState({subErrors: this.state.text.errors.empty_fields})
+    }
     for (const category of article.categories){
       categories.push(category.id);
     }
@@ -95,7 +100,7 @@ class AdminArticle extends React.Component{
       this.triggerModify();
       this.getAllArticles();
     }).catch(() => {
-      this.setState({error: text.errors.update_article});
+      this.setState({error: this.state.text.errors.update_article});
     })
   }
 
@@ -107,10 +112,14 @@ class AdminArticle extends React.Component{
     });
   }
   triggerCreate = () => {
+    this.resetSubErrors()
     this.setState({isCreate: !this.state.isCreate});
   }
   apiCreate = async (article) => {
     let categories = [];
+    if (!article.title || !article.sanitized_html || !article.is_public || !article.categories){
+      return this.setState({subErrors: this.state.text.errors.empty_fields})
+    }
     for (const category of article.categories){
       categories.push(category.id);
     }
@@ -121,7 +130,7 @@ class AdminArticle extends React.Component{
       this.triggerCreate();
       this.getAllArticles();
     }).catch(() => {
-      this.setState({error: text.errors.create_article});
+      this.setState({error: this.state.text.errors.create_article});
     })
   }
 
@@ -133,13 +142,16 @@ class AdminArticle extends React.Component{
       this.toggleLoading()
       this.getAllArticles();
     }).catch(() => {
-      this.setState({error: text.errors.delete_article});
+      this.setState({error: this.state.text.errors.delete_article});
     })
   }
 
+  resetSubErrors = () => {
+    this.setState({subErrors: ''})
+  }
 
   render() {
-    const { text, articles, error, isShown, selectedArticle, isModify, categories, loading, isCreate } = this.state;
+    const { text, articles, error, isShown, selectedArticle, isModify, categories, loading, isCreate, subErrors } = this.state;
     return (
       <div>
         {error ? <p>{error}</p> : undefined}
@@ -159,6 +171,7 @@ class AdminArticle extends React.Component{
             fields={text.all_fields}
             multiSelectValues={categories}
             returnToParent={this.apiCreate}
+            errors={subErrors}
           /> : undefined}
         { isModify ?
           <ModifyModal
@@ -167,6 +180,7 @@ class AdminArticle extends React.Component{
             fields={text.all_fields}
             multiSelectValues={categories}
             returnToParent={this.apiModify}
+            errors={subErrors}
           /> : undefined}
       </div>
     );
