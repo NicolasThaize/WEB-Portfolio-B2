@@ -24,6 +24,13 @@ class ArticlesModule {
    */
   static async updateArticle(id, values) {
     let response;
+    if (!values.images) values.images = []
+    if (!values.comments) values.comments = []
+    if (!values.categories) values.categories = []
+    if (!values.sanitized_html) values.sanitized_html = ""
+    if (!values.title) values.title = ""
+    if (values.is_public === undefined) values.is_public = false
+    values.slug = returnSlug(values)
     await axiosInstance.patch(`/articles/${id}/`, values).then(r => {
       response = r.data
     }).catch(error => {
