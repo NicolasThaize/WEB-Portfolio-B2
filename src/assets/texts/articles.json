@@ -1,0 +1,14 @@
+{
+  "fr": {
+    "errors": {
+      "retreviewing_articles": "Il y a eu une erreur lors de la récupération des articles.",
+      "no_articles": "Il n'y a aucun article pour le moment."
+    }
+  },
+  "en": {
+    "errors": {
+      "retreviewing_articles": "An error has occured while retreviewing articles.",
+      "no_articles": "There is no article for the moment."
+    }
+  }
+}

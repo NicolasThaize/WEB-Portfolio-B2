@@ -33,7 +33,6 @@ class ArticlesModule {
         response.push(article)
       }
     }
-    console.log(articles, response)
     return response;
   }
 
