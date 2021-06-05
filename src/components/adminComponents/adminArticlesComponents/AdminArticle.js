@@ -6,6 +6,7 @@ import Pagination from "../Pagination";
 import ShowModal from "../ShowModal";
 import ModifyModal from "../ModifyModal";
 import CategoriesModule from "../../../CategoriesModule";
+import CreateModal from "../CreateModal";
 
 class AdminArticle extends React.Component{
   static contextType = UserContext;
@@ -24,6 +25,7 @@ class AdminArticle extends React.Component{
     isShown: false,
     isModify: false,
     isDelete: false,
+    isCreate: false,
     selectedArticle: '',
     categories: [],
     loading: false
@@ -42,13 +44,13 @@ class AdminArticle extends React.Component{
     await ArticlesModule.getAllArticles().then(r => {
       this.setState({articles: r});
     }).catch(() => {
-      this.setState({error: text.error.get_articles});
+      this.setState({error: text.errors.get_articles});
     })
     await CategoriesModule.getAllCategories().then(r => {
       this.setState({categories: r})
       this.toggleLoading()
     }).catch(() => {
-      this.setState({error: text.error.get_categories});
+      this.setState({error: text.errors.get_categories});
     })
   }
 
@@ -58,7 +60,7 @@ class AdminArticle extends React.Component{
       this.setState({articles: r});
       this.toggleLoading()
     }).catch(() => {
-      this.setState({error: text.error.get_articles});
+      this.setState({error: text.errors.get_articles});
     })
   }
 
@@ -93,30 +95,56 @@ class AdminArticle extends React.Component{
       this.triggerModify();
       this.getAllArticles();
     }).catch(() => {
-      this.setState({error: text.error.update_article});
+      this.setState({error: text.errors.update_article});
+    })
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
+  createFunc = () => {
+    this.setState({selectedArticle: {}}, () => {
+      this.triggerCreate();
+    });
+  }
+  triggerCreate = () => {
+    this.setState({isCreate: !this.state.isCreate});
+  }
+  apiCreate = async (article) => {
+    let categories = [];
+    for (const category of article.categories){
+      categories.push(category.id);
+    }
+    article.categories = categories;
+    this.toggleLoading()
+    await ArticlesModule.createArticle(article).then(() => {
+      this.toggleLoading()
+      this.triggerCreate();
+      this.getAllArticles();
+    }).catch(() => {
+      this.setState({error: text.errors.create_article});
     })
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
 
   deleteFunc = (article) => {
-    console.log("delete", article)
     this.toggleLoading()
     ArticlesModule.deleteArticle(article).then(() => {
       this.toggleLoading()
       this.getAllArticles();
     }).catch(() => {
-      this.setState({error: text.error.delete_article});
+      this.setState({error: text.errors.delete_article});
     })
   }
 
 
   render() {
-    const { text, articles, error, isShown, selectedArticle, isModify, categories, loading } = this.state;
+    const { text, articles, error, isShown, selectedArticle, isModify, categories, loading, isCreate } = this.state;
     return (
       <div>
         {error ? <p>{error}</p> : undefined}
         {loading ? <p>{loading}</p> : undefined}
+        <button type='button' onClick={this.triggerCreate}>{text.buttons.create}</button>
         { articles.length > 0 ?
           <Pagination
             array={articles}
@@ -124,6 +152,14 @@ class AdminArticle extends React.Component{
             crud={{show: this.showFunc, modify: this.mofifyFunc, delete: this.deleteFunc}}
           /> : <p>{text.no_article}</p> }
         { isShown ? <ShowModal selected={selectedArticle} toggle={this.triggerShow} fields={text.all_fields}/> : undefined}
+        { isCreate ?
+          <CreateModal
+            selected={selectedArticle}
+            toggle={this.triggerCreate}
+            fields={text.all_fields}
+            multiSelectValues={categories}
+            returnToParent={this.apiCreate}
+          /> : undefined}
         { isModify ?
           <ModifyModal
             selected={selectedArticle}

@@ -16,8 +16,10 @@ class MultipleSelectInput extends React.Component{
   render() {
     const { label, name, value, onChange, multiSelectValues } = this.state;
     let ids = []
-    for (const id of value){
-      ids.push(id.id)
+    if (value !== undefined){
+      for (const id of value){
+        ids.push(id.id)
+      }
     }
     return (
       <div>

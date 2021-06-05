@@ -13,7 +13,8 @@
       "get_categories": "Erreur lors de la récupération des données.",
       "no_article": "Il n'y a aucun article.",
       "update_article": "Il y a eut une erreur lors de la mise à jour de l'article.",
-      "delete_article": "Il y a eut une erreur lors de la suppression de l'article."
+      "delete_article": "Il y a eut une erreur lors de la suppression de l'article.",
+      "create_article": "Il y a eut une erreur lors de la création de l'article."
     },
     "fields": [
       {
@@ -54,7 +55,7 @@
   },
   "en": {
     "buttons": {
-      "create": "Create an article",
+      "create": "New article",
       "show": "Show",
       "modify": "Modify",
       "delete": "Delete",
@@ -66,7 +67,8 @@
       "get_categories": "Error while retreviewing data.",
       "no_article": "There is no articles.",
       "update_article": "There was an error updating the article.",
-      "delete_article": "There was an error deleting the article."
+      "delete_article": "There was an error deleting the article.",
+      "create_article": "There was an error creating the article."
     },
     "fields": [
       {

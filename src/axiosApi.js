@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {UserContext} from "./context";
+const contextType = UserContext;
 
 const baseURL = 'http://127.0.0.1:8000/';
 
@@ -49,6 +51,7 @@ axiosInstance.interceptors.response.use(
                             return axiosInstance(originalRequest);
                         })
                         .catch(() => {
+                          contextType.logoutUser();
                         });
                 } else {
                     window.location.href = '/login/'; // Refresh token expired
