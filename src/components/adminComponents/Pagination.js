@@ -41,7 +41,6 @@ class Pagination extends React.Component{
 
   static getDerivedStateFromProps(props, state){
     state.objects = props.array
-    state.fields = props.fields
     return state.fields = props.fields
   }
 
@@ -53,7 +52,17 @@ class Pagination extends React.Component{
    */
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.array !== this.state.objects){
-      return this.setArticlePages()
+      let current = [], maxIndex = 5;
+      if (this.state.objects.length < 5) { // To avoid undefined index
+        maxIndex = this.state.objects.length
+      }
+      for (let index = 0; index < maxIndex; index++){
+        current.push(this.state.objects[index])
+      }
+      this.setState({
+        shownObjects: current,
+        numberOfPages: Math.ceil(this.state.objects.length / 5)
+      })
     }
   }
 
@@ -68,18 +77,21 @@ class Pagination extends React.Component{
 
     this.setState({
       shownObjects: current,
-      numberOfPages: Math.round(this.state.objects.length / 5)
+      numberOfPages: Math.ceil(this.state.objects.length / 5)
     })
-    }
+  }
 
   setArticlePages = (page = 1) => {
     let current = [], maxIndex = page * 5;
     if (this.state.objects[page*5] === undefined){
-      maxIndex = this.state.objects.length - 1;
+      maxIndex = this.state.objects.length ;
     }
     let index = page * 5 - 5;
     for (index; index < maxIndex; index++){
       current.push(this.state.objects[index])
+    }
+    if (this.state.objects.length <= 5){
+      current = this.state.objects
     }
     this.setState({shownObjects: current})
   }
