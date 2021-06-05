@@ -10,6 +10,9 @@ class MultipleSelectInput extends React.Component{
   }
 
   static getDerivedStateFromProps(props, state){
+    if (props.value === undefined){
+      return state.value = ''
+    }
     return state.value = props.value
   }
 
