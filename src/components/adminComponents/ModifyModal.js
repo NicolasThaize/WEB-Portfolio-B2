@@ -84,9 +84,12 @@ class ShowModal extends React.Component{
 
     // is_public needs to be a boolean
     if (e.target.name === 'is_public'){
-      value = e.target.value === 'true';
+      if (e.target.value === 'true'){
+        value = true
+      } else {
+        value = false
+      }
     }
-
     let newInputs = this.state.selected;
     newInputs[e.target.name] = value
     this.setState({values: newInputs, selected: newInputs});

@@ -17,6 +17,27 @@ class ArticlesModule {
   }
 
   /**
+   * Axios request wich returns all publiv articles objects
+   * @returns {Promise<*>}
+   */
+  static async getAllPublicArticles() {
+    let articles;
+    await axiosInstance.get('/articles/').then(r => {
+      articles = r.data;
+    }).catch(error => {
+      throw Object.assign(new Error(error));
+    })
+    let response = [];
+    for (let article of articles){
+      if (article.is_public){
+        response.push(article)
+      }
+    }
+    console.log(articles, response)
+    return response;
+  }
+
+  /**
    * Axios request to update specific article
    * @param id
    * @param values

@@ -87,7 +87,7 @@ class AdminArticle extends React.Component{
   }
   apiModify = async (article) => {
     let categories = [];
-    if (!article.title || !article.sanitized_html || !article.is_public || !article.categories){
+    if (!article.title || !article.sanitized_html || !article.categories){
       return this.setState({subErrors: this.state.text.errors.empty_fields})
     }
     for (const category of article.categories){
