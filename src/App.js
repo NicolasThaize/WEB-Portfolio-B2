@@ -7,13 +7,15 @@ import './assets/css/global.min.css';
 
 import Home from "./components/HomeComponents/Home";
 import Navbar from "./components/NavbarComponents/Navbar";
-
-import UserModule from "./UserModule";
+import Admin from "./components/adminComponents/Admin";
 import Login from "./components/LoginComponents/Login";
 import Register from "./components/RegisterComponents/Register";
+import Articles from "./components/ArticlesComponents/Articles";
+
 import axiosInstance from "./axiosApi";
 import ToggleLanguageButtons from "./components/ContextComponents/ToggleLanguageButtons";
-import Admin from "./components/adminComponents/Admin";
+import UserModule from "./UserModule";
+
 
 
 class App extends React.Component{
@@ -100,6 +102,8 @@ class App extends React.Component{
 
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+
+                <Route exact path="/articles" component={Articles} />
 
                 <Route exact path="/admin" component={Admin} />
 
