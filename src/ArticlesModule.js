@@ -21,18 +21,12 @@ class ArticlesModule {
    * @returns {Promise<*>}
    */
   static async getAllPublicArticles() {
-    let articles;
-    await axiosInstance.get('/articles/').then(r => {
-      articles = r.data;
+    let response;
+    await axiosInstance.get('/public_articles/').then(r => {
+      response = r.data;
     }).catch(error => {
       throw Object.assign(new Error(error));
     })
-    let response = [];
-    for (let article of articles){
-      if (article.is_public){
-        response.push(article)
-      }
-    }
     return response;
   }
 
@@ -44,12 +38,7 @@ class ArticlesModule {
    */
   static async updateArticle(id, values) {
     let response;
-    if (!values.images) values.images = []
-    if (!values.comments) values.comments = []
-    if (!values.categories) values.categories = []
-    if (!values.sanitized_html) values.sanitized_html = ""
-    if (!values.title) values.title = ""
-    if (values.is_public === undefined) values.is_public = false
+    values = checkFields(values)
     values.slug = returnSlug(values)
     await axiosInstance.patch(`/articles/${id}/`, values).then(r => {
       response = r.data
@@ -83,12 +72,7 @@ class ArticlesModule {
     let response;
     article.slug = returnSlug(article)
     article.author = UserModule.getUserData().username
-    if (!article.images) article.images = []
-    if (!article.comments) article.comments = []
-    if (!article.categories) article.categories = []
-    if (!article.sanitized_html) article.sanitized_html = ""
-    if (!article.title) article.title = ""
-    if (article.is_public === undefined) article.is_public = false
+    article = checkFields(article)
 
     await axiosInstance.post(`/articles/`, article).then(r => {
       response = r.data
@@ -115,6 +99,16 @@ function returnSlug(article){
     .replace(/\s+/g, '-') // collapse whitespace and replace by -
     .replace(/-+/g, '-'); // collapse dashes
   return str;
+}
+
+function checkFields(article){
+  if (!article.images) article.images = []
+  if (!article.comments) article.comments = []
+  if (!article.categories) article.categories = []
+  if (!article.sanitized_html) article.sanitized_html = ""
+  if (!article.title) article.title = ""
+  if (article.is_public === undefined) article.is_public = false
+  return article
 }
 
 export default ArticlesModule;
