@@ -11,6 +11,7 @@ import Admin from "./components/adminComponents/Admin";
 import Login from "./components/LoginComponents/Login";
 import Register from "./components/RegisterComponents/Register";
 import Articles from "./components/ArticlesComponents/Articles";
+import ArticlesDetail from "./components/ArticlesComponents/ArticlesDetail";
 
 import axiosInstance from "./axiosApi";
 import ToggleLanguageButtons from "./components/ContextComponents/ToggleLanguageButtons";
@@ -104,6 +105,7 @@ class App extends React.Component{
                 <Route exact path="/register" component={Register} />
 
                 <Route exact path="/articles" component={Articles} />
+                <Route exact path="/articles/:slug" component={ArticlesDetail} />
 
                 <Route exact path="/admin" component={Admin} />
 

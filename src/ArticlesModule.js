@@ -81,6 +81,21 @@ class ArticlesModule {
     })
     return response
   }
+
+  /**
+   * Axios request to get a specific article
+   * @param slug
+   * @returns {Promise<void>}
+   */
+  static async getArticleBySlug(slug){
+    let response;
+    await axiosInstance.get(`/public_articles/${slug}/`).then(r => {
+      response = r.data
+    }).catch(error => {
+      throw Object.assign(new Error(error));
+    })
+    return response
+  }
 }
 
 function returnSlug(article){

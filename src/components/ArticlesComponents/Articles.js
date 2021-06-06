@@ -2,6 +2,7 @@ import React from "react";
 import ArticlesModule from "../../ArticlesModule";
 import {UserContext} from "../../context";
 import text from "../../assets/texts/articles.json";
+import ArticleBox from "./ArticleBox";
 
 class Articles extends React.Component{
   static contextType = UserContext;
@@ -21,7 +22,7 @@ class Articles extends React.Component{
   async componentDidMount() {
     ArticlesModule.getAllPublicArticles().then(r => {
       this.setState({articles: r})
-    }).catch(error => {
+    }).catch(() => {
       this.setState({error: this.state.text.errors.retreviewing_articles})
     })
   }
@@ -32,9 +33,8 @@ class Articles extends React.Component{
       <div>
         {error ? <p>{error}</p> : undefined}
         {articles.map(article => (
-          article.title
+          <ArticleBox article={article}/>
         ))}
-        articles
       </div>
     );
   }
