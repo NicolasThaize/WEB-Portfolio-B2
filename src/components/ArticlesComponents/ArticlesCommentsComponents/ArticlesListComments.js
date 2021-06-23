@@ -3,6 +3,7 @@ import {UserContext} from "../../../context";
 import text from "../../../assets/texts/articles/writeComment.json";
 import ArticlesListReplies from "./ArticlesListReplies";
 import ArticlesWriteReply from "./ArticlesWriteReply";
+import UserModule from "../../../UserModule";
 
 
 class ArticlesListComments extends React.Component{
@@ -22,9 +23,12 @@ class ArticlesListComments extends React.Component{
   state = {
     text: text[this.lang],
     article: this.props.article,
+    userId: UserModule.getUserData().id
   }
 
+  deleteComment = (comment) => {
 
+  }
 
   render() {
     const { text, article, userId } = this.state;
@@ -32,6 +36,9 @@ class ArticlesListComments extends React.Component{
       <div>
         { article.comments.map(comment => (
           <div key={comment.id}>
+
+            {comment.author.id === userId ? <button onClick={() => this.deleteComment(comment)}>Supprimer</button> : undefined }
+
             {comment.author.username}: {comment.text}
             <ArticlesListReplies replies={comment.replies}/>
             <ArticlesWriteReply article={article}/>
