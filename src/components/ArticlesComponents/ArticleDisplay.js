@@ -27,7 +27,7 @@ class ArticleDisplay extends React.Component{
     return (
       <div>
         {article.title}
-        <ArticlesComments comments={article.comments}/>
+        <ArticlesComments article={article}/>
       </div>
     );
   }

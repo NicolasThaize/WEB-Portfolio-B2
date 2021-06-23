@@ -1,11 +1,10 @@
 import React from "react";
 import {UserContext} from "../../../context";
-import text from "../../../assets/texts/articles/comments.json";
-import ArticlesWriteComment from "./ArticlesWriteComment";
+import text from "../../../assets/texts/articles/writeComment.json";
 import ArticlesListReplies from "./ArticlesListReplies";
-import ArticlesListComments from "./ArticlesListComments";
 
-class ArticlesComments extends React.Component{
+
+class ArticlesListComments extends React.Component{
   static contextType = UserContext;
   lang = this.context.language
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -20,20 +19,15 @@ class ArticlesComments extends React.Component{
     article: this.props.article
   }
 
-  static getDerivedStateFromProps(props, state){
-    return state.article = props.article
-  }
-
   render() {
-    const { text, article } = this.state;
+    const { text } = this.state;
     return (
       <div>
-        <h2>Les commentaires: </h2>
-        <ArticlesWriteComment article={article}/>
-        <ArticlesListComments article={article}/>
+        Composant d'affichage des commentaires
+        <ArticlesListReplies/>
       </div>
     );
   }
 }
 
-export default ArticlesComments;
+export default ArticlesListComments;

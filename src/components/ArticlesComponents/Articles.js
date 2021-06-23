@@ -33,7 +33,9 @@ class Articles extends React.Component{
       <div>
         {error ? <p>{error}</p> : undefined}
         {articles.map(article => (
-          <ArticleBox article={article}/>
+          <div key={article.id}>
+            <ArticleBox article={article}/>
+          </div>
         ))}
       </div>
     );
