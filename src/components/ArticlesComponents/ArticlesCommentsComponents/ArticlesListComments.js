@@ -32,6 +32,7 @@ class ArticlesListComments extends React.Component{
             <ArticlesWriteReply article={article}/>
           </div>
         )) }
+        { article.comments.length === 0 ? <p>{text.no_comments}</p> : undefined}
       </div>
     );
   }
