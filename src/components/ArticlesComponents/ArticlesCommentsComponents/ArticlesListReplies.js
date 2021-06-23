@@ -16,15 +16,19 @@ class ArticlesListReplies extends React.Component{
 
   state = {
     text: text[this.lang],
-    article: this.props.article
+    replies: this.props.replies
   }
 
   render() {
-    const { text } = this.state;
+    const { text, replies } = this.state;
     return (
       <div>
         Composant d'affichage des réponses
-        <ArticlesWriteReply/>
+        { replies.map(reply => (
+          <div key={reply.id}>
+            {reply.reply_author.username} {reply.reply_text}
+          </div>
+        ))}
       </div>
     );
   }

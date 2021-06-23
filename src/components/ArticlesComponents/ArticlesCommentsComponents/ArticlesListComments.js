@@ -2,6 +2,7 @@ import React from "react";
 import {UserContext} from "../../../context";
 import text from "../../../assets/texts/articles/writeComment.json";
 import ArticlesListReplies from "./ArticlesListReplies";
+import ArticlesWriteReply from "./ArticlesWriteReply";
 
 
 class ArticlesListComments extends React.Component{
@@ -20,11 +21,17 @@ class ArticlesListComments extends React.Component{
   }
 
   render() {
-    const { text } = this.state;
+    const { text, article } = this.state;
     return (
       <div>
         Composant d'affichage des commentaires
-        <ArticlesListReplies/>
+        { article.comments.map(comment => (
+          <div key={comment.id}>
+            {comment.author.username}: {comment.text}
+            <ArticlesListReplies replies={comment.replies}/>
+            <ArticlesWriteReply article={article}/>
+          </div>
+        )) }
       </div>
     );
   }
