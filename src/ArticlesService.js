@@ -92,6 +92,10 @@ class ArticlesModule {
     await axiosInstance.get(`/public_articles/${slug}/`).then(r => {
       response = r.data
     }).catch(error => {
+      if (error.status === 404){
+        let err = new Error('404').message = 'not found'
+        throw err;
+      }
       throw Object.assign(new Error(error));
     })
     return response

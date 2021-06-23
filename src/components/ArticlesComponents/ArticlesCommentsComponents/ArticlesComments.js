@@ -29,8 +29,13 @@ class ArticlesComments extends React.Component{
     return (
       <div>
         <h2>Les commentaires: </h2>
-        <ArticlesWriteComment article={article}/>
-        <ArticlesListComments article={article}/>
+        {article ? (
+          <div>
+            <ArticlesWriteComment article={article}/>
+            <ArticlesListComments article={article}/>
+          </div>
+        ) : undefined}
+
       </div>
     );
   }
