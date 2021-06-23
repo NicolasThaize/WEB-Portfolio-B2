@@ -15,16 +15,21 @@ class ArticlesListComments extends React.Component{
     }
   }
 
-  state = {
-    text: text[this.lang],
-    article: this.props.article
+  static getDerivedStateFromProps(props, state){
+    return state.article = props.article
   }
 
+  state = {
+    text: text[this.lang],
+    article: this.props.article,
+  }
+
+
+
   render() {
-    const { text, article } = this.state;
+    const { text, article, userId } = this.state;
     return (
       <div>
-        Composant d'affichage des commentaires
         { article.comments.map(comment => (
           <div key={comment.id}>
             {comment.author.username}: {comment.text}

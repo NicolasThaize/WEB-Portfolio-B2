@@ -1,5 +1,7 @@
 import axiosInstance from "./axiosApi";
 import UserModule from "./UserModule";
+import CommentsService from "./CommentsService";
+import Login from "./components/LoginComponents/Login";
 
 class ArticlesModule {
   /**
@@ -99,6 +101,29 @@ class ArticlesModule {
       throw Object.assign(new Error(error));
     })
     return response
+  }
+
+  static async addComment(article, comment){
+    comment['author'] = UserModule.getUserData().id;
+    comment['replies'] = [];
+    let response;
+    let comments = [];
+    for (let comment of article.comments){
+      comments.push(comment.id);
+    }
+
+    await CommentsService.createComment(comment).then(async r => {
+      comment = r;
+      comments.push(comment.id);
+      await axiosInstance.put(`/update/articles_comments/${article.id}/`, {comments: comments}).then(r => {
+        response = r.data;
+      }).catch(err => {
+        console.log(err)
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+    return response;
   }
 }
 

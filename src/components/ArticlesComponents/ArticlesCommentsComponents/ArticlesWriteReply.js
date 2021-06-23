@@ -13,6 +13,10 @@ class ArticlesWriteReply extends React.Component{
     }
   }
 
+  static getDerivedStateFromProps(props, state){
+    return state.article = props.article
+  }
+
   state = {
     text: text[this.lang],
     article: this.props.article
@@ -22,7 +26,9 @@ class ArticlesWriteReply extends React.Component{
     const { text } = this.state;
     return (
       <div>
-        Composant d'écriture des réponses
+        <input type='text' placeholder="here reply"/>
+        <button>Envoyer</button>
+        <button>Annuler</button>
       </div>
     );
   }

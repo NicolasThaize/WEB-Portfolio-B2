@@ -1,6 +1,7 @@
 import React from "react";
 import {UserContext} from "../../../context";
 import text from "../../../assets/texts/articles/writeComment.json";
+import ArticlesModule from "../../../ArticlesService";
 
 
 class ArticlesWriteComment extends React.Component{
@@ -13,16 +14,37 @@ class ArticlesWriteComment extends React.Component{
     }
   }
 
+  static getDerivedStateFromProps(props, state){
+    return state.article = props.article
+  }
+
   state = {
     text: text[this.lang],
-    article: this.props.article
+    article: this.props.article,
+    userInput: ''
+  }
+
+  handleChange = (e) => {
+    this.setState({userInput: e.target.value})
+  }
+
+  sendComment = () => {
+    ArticlesModule.addComment(this.state.article, {text: this.state.userInput}).then(r => {
+      this.props.reloadArticle(r)
+    })
+  }
+
+  resetInput = () => {
+    this.setState({userInput: ''})
   }
 
   render() {
-    const { text } = this.state;
+    const { text, userInput } = this.state;
     return (
       <div>
-        Composant d'écriture des commentaires
+        <input type='text' placeholder="here comment" onChange={this.handleChange} value={userInput}/>
+        <button onClick={this.sendComment}>Envoyer</button>
+        <button onClick={this.resetInput}>Annuler</button>
       </div>
     );
   }
