@@ -1,8 +1,12 @@
 {
   "fr": {
-    "test": "Bonjour"
+    "links":{
+      "articles": "Articles"
+    }
   },
   "en": {
-    "test": "Hello"
+    "links":{
+      "articles": "Articles"
+    }
   }
 }

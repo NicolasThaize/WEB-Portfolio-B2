@@ -1,7 +1,7 @@
 import React from "react";
 import {UserContext} from "../../context";
-import text from "../../assets/texts/articles.json";
-import ArticlesModule from "../../ArticlesModule";
+import text from "../../assets/texts/articles/articles.json";
+import ArticlesModule from "../../ArticlesService";
 import ArticleDisplay from "./ArticleDisplay";
 import {Redirect} from "react-router-dom";
 

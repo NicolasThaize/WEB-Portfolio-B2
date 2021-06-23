@@ -4,6 +4,7 @@ import NavbarNotLogged from "./NavbarNotLogged";
 import NavbarIsAdmin from "./NavbarIsAdmin";
 import {UserContext} from "../../context";
 import text from "../../assets/texts/navbar.json";
+import {Link} from "react-router-dom";
 
 class Navbar extends React.Component {
   static contextType = UserContext;
@@ -27,6 +28,7 @@ class Navbar extends React.Component {
           { this.context.language }
           { this.context.isLogged ? <NavbarIsLogged/> : <NavbarNotLogged/> }
           { this.context.isAdmin ? <NavbarIsAdmin/> : undefined }
+          <Link to='/articles'>{text.links.articles}</Link>
         </div>
       </div>
     );

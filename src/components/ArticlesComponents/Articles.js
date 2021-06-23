@@ -1,7 +1,7 @@
 import React from "react";
-import ArticlesModule from "../../ArticlesModule";
+import ArticlesModule from "../../ArticlesService";
 import {UserContext} from "../../context";
-import text from "../../assets/texts/articles.json";
+import text from "../../assets/texts/articles/articles.json";
 import ArticleBox from "./ArticleBox";
 
 class Articles extends React.Component{

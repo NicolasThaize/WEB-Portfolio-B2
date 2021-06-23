@@ -4,13 +4,15 @@
       "retreviewing_articles": "Il y a eu une erreur lors de la récupération des articles.",
       "no_articles": "Il n'y a aucun article pour le moment."
     },
-    "read_more": "En lire plus"
+    "read_more": "En lire plus",
+    "log_for_comment": "Si vous voulez écrire un commentaire connectez vous !"
   },
   "en": {
     "errors": {
       "retreviewing_articles": "An error has occured while retreviewing articles.",
       "no_articles": "There is no article for the moment."
     },
-    "read_more": "Read more"
+    "read_more": "Read more",
+    "log_for_comment": "If you want to send a comment you must log in !"
   }
 }
