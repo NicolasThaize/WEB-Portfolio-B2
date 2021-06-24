@@ -1,7 +1,6 @@
 import axiosInstance from "./axiosApi";
 import UserModule from "./UserModule";
 import CommentsService from "./CommentsService";
-import Login from "./components/LoginComponents/Login";
 
 class ArticlesModule {
   /**
@@ -122,6 +121,21 @@ class ArticlesModule {
       })
     }).catch(err => {
       console.log(err)
+    })
+    return response;
+  }
+
+  static async deleteComment(article, comment){
+    let response;
+    article.comments = article.comments.filter(actComment => actComment.id !== comment.id);
+    let commentsIds = [];
+    for (let comment of article.comments){
+      commentsIds.push(comment.id);
+    }
+    await axiosInstance.put(`/articles/${article.id}/`, {comments: commentsIds}).then(r => {
+      response = r.data;
+    }).catch(err => {
+      console.log(err);
     })
     return response;
   }

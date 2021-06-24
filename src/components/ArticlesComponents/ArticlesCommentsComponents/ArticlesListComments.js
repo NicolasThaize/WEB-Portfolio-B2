@@ -4,6 +4,8 @@ import text from "../../../assets/texts/articles/writeComment.json";
 import ArticlesListReplies from "./ArticlesListReplies";
 import ArticlesWriteReply from "./ArticlesWriteReply";
 import UserModule from "../../../UserModule";
+import ArticlesModule from "../../../ArticlesService";
+import ArticleCommentReplyDeleteValidation from "./ArticleCommentReplyDeleteValidation";
 
 
 class ArticlesListComments extends React.Component{
@@ -23,21 +25,53 @@ class ArticlesListComments extends React.Component{
   state = {
     text: text[this.lang],
     article: this.props.article,
-    userId: UserModule.getUserData().id
+    userId: UserModule.getUserData().id,
+    error: undefined,
+    deleteLoading: false,
+    deleteValidation: false,
+    wantedToDeleteComment: undefined
   }
 
-  deleteComment = (comment) => {
 
+
+  wantToDelete = (comment) => {
+    this.setState({wantedToDeleteComment:comment, deleteValidation: true})
+  }
+
+  triggerDelete = () => {
+    this.setState({deleteValidation: !this.state.deleteValidation});
+  }
+
+  deleteComment = async (comment) => {
+    console.log(comment)
+    this.setState({deleteLoading: true})
+    this.setState({error: undefined})
+    await ArticlesModule.deleteComment(this.state.article, comment).then(r => {
+      this.setState({deleteLoading: false})
+    }).catch((err) => {
+      console.log(err)
+      this.setState({deleteLoading: false})
+      this.setState({error: this.state.text.errors.error_delete})
+    })
   }
 
   render() {
-    const { text, article, userId } = this.state;
+    const { text, article, userId, error, deleteLoading, deleteValidation, wantedToDeleteComment } = this.state;
     return (
       <div>
         { article.comments.map(comment => (
-          <div key={comment.id}>
+          <div key={comment.id} style={{margin: "25px"}}>
+            {comment.author.id === userId ? <button onClick={() => this.wantToDelete(comment)}>Supprimer</button> : undefined }
 
-            {comment.author.id === userId ? <button onClick={() => this.deleteComment(comment)}>Supprimer</button> : undefined }
+            {deleteValidation && wantedToDeleteComment.id === comment.id ?
+              <ArticleCommentReplyDeleteValidation
+                deleteComment={this.deleteComment}
+                trigger={this.triggerDelete}
+                comment={comment}
+              />
+              : undefined}
+
+            { error && wantedToDeleteComment.id === comment.id ? <p>{error}</p> : undefined }
 
             {comment.author.username}: {comment.text}
             <ArticlesListReplies replies={comment.replies}/>
