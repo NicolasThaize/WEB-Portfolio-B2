@@ -14,13 +14,13 @@ class ArticlesComments extends React.Component{
     }
   }
 
+  static getDerivedStateFromProps(props, state){
+    return state.article = props.article
+  }
+
   state = {
     text: text[this.lang],
     article: this.props.article
-  }
-
-  reloadArticle = (newArticle) => {
-    this.setState({article: newArticle})
   }
 
   render() {
@@ -30,8 +30,8 @@ class ArticlesComments extends React.Component{
         <h2>Les commentaires: </h2>
         { 'comments' in article ?
           <div>
-            <ArticlesWriteComment article={article} reloadArticle={this.reloadArticle}/>
-            <ArticlesListComments article={article}/>
+            <ArticlesWriteComment article={article} refreshArticle={this.props.refreshArticle}/>
+            <ArticlesListComments article={article} refreshArticle={this.props.refreshArticle}/>
           </div>
           : undefined
         }

@@ -34,12 +34,22 @@ class ArticlesDetail extends React.Component{
     this.setState({article: article})
   }
 
+  refreshArticle = async () => {
+    const article = await ArticlesModule.getArticleById(this.state.article.id).catch(error => {
+      if (error === 'not found'){
+        return this.setState({redirect: true})
+      }
+      this.setState({error: error})
+    })
+    this.setState({article: article})
+  }
+
   render() {
     const { text, article, redirect } = this.state;
     return (
       <div>
         {redirect ? <Redirect to={'/articles/'}/> : undefined }
-        {'id' in article ? <ArticleDisplay article={article}/> : undefined }
+        {'id' in article ? <ArticleDisplay article={article} refreshArticle={this.refreshArticle}/> : undefined }
       </div>
     );
   }

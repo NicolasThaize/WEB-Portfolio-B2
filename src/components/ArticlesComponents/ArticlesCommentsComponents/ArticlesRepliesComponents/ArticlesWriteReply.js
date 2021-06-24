@@ -22,16 +22,23 @@ class ArticlesWriteReply extends React.Component{
     text: text[this.lang],
     article: this.props.article,
     userInput: '',
-    comment: this.props.comment
+    comment: this.props.comment,
+    loading: false,
+    error: undefined
   }
 
   handleChange = (e) => {
     this.setState({userInput: e.target.value})
   }
 
-  sendReply = () => {
-    CommentsService.addReply(this.state.comment, {reply_text: this.state.userInput}).then(r => {
-      this.props.reloadComments(r)
+  sendReply = async () => {
+    this.setState({loading: true})
+    await CommentsService.addReply(this.state.comment, {reply_text: this.state.userInput}).then(() => {
+      this.setState({loading: false})
+      this.props.refreshArticle()
+    }).catch(() => {
+      this.setState({loading: false})
+      this.setState({error: "Error while sending the reply."})
     })
   }
 
@@ -40,12 +47,14 @@ class ArticlesWriteReply extends React.Component{
   }
 
   render() {
-    const { text, userInput } = this.state;
+    const { text, userInput, loading, error } = this.state;
     return (
       <div>
         <input type='text' placeholder="here reply" value={userInput} onChange={this.handleChange}/>
+        {error ? <p>{error}</p> : undefined}
         <button onClick={this.sendReply}>Envoyer</button>
         <button onClick={this.resetInput}>Annuler</button>
+        {loading ? <p>Sending</p> : undefined}
       </div>
     );
   }

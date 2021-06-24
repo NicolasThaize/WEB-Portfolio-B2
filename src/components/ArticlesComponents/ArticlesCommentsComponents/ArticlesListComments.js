@@ -45,10 +45,9 @@ class ArticlesListComments extends React.Component{
   deleteComment = async (comment) => {
     this.setState({deleteLoading: true})
     this.setState({error: undefined})
-    await ArticlesModule.deleteComment(this.state.article, comment).then(r => {
+    await ArticlesModule.deleteComment(this.state.article, comment).then((r) => {
       this.setState({deleteLoading: false})
-    }).catch((err) => {
-      console.log(err)
+    }).catch(() => {
       this.setState({deleteLoading: false})
       this.setState({error: this.state.text.errors.error_delete})
     })
@@ -68,7 +67,7 @@ class ArticlesListComments extends React.Component{
         { article.comments.map(comment => (
           <div key={comment.id} style={{margin: "25px"}}>
             {comment.author.id === userId ? <button onClick={() => this.wantToDelete(comment)}>Supprimer</button> : undefined }
-
+            { deleteLoading ? <p>Deleting...</p> : undefined }
             {deleteValidation && wantedToDeleteComment.id === comment.id ?
               <ArticleCommentReplyDeleteValidation
                 deleteComment={this.deleteComment}
@@ -80,8 +79,15 @@ class ArticlesListComments extends React.Component{
             { error && wantedToDeleteComment.id === comment.id ? <p>{error}</p> : undefined }
 
             {comment.author.username}: {comment.text}
-            <ArticlesListReplies replies={comment.replies}/>
-            <ArticlesWriteReply article={article} comment={comment} reloadComments={this.reloadComments}/>
+            <ArticlesListReplies
+              comment={comment}
+              refreshArticle={this.props.refreshArticle}
+            />
+            <ArticlesWriteReply
+              article={article}
+              comment={comment}
+              refreshArticle={this.props.refreshArticle}
+            />
           </div>
         )) }
         { article.comments.length === 0 ? <p>{text.no_comments}</p> : undefined}

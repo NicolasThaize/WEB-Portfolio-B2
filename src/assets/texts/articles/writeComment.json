@@ -2,23 +2,25 @@
   "fr": {
     "no_comments": "Il n'y a aucun commentaire pour le moment.",
     "delete_comment": {
-      "message": "Voulez vous vraiment supprimer le commentaire ?",
+      "message": "Valider la suppression ?",
       "delete": "Supprimer",
       "cancel": "Annuler"
     },
     "errors": {
-      "error_delete": "Il y a eu une erreur lors de la suppression du commentaire."
+      "error_delete": "Il y a eu une erreur lors de la suppression du commentaire.",
+      "error_delete_reply": "Il y a eu une erreur lors de la suppression de la réponse."
     }
   },
   "en": {
     "no_comments": "There is actually no comments.",
     "delete_comment": {
-      "message": "Do you really want to delete the comment ?",
+      "message": "Validate the deletion ?",
       "delete": "Delete",
       "cancel": "Cancel"
     },
     "errors": {
-      "error_delete": "There was an error deleting the comment."
+      "error_delete": "There was an error deleting the comment.",
+      "error_delete_reply": "There was an error deleting the reply."
     }
   }
 }

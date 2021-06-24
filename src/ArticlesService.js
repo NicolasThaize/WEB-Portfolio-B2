@@ -102,6 +102,31 @@ class ArticlesModule {
     return response
   }
 
+  /**
+   * Axios request to get a specific article
+   * @param slug
+   * @returns {Promise<void>}
+   */
+  static async getArticleById(id){
+    let response;
+    await axiosInstance.get(`/articles/${id}/`).then(r => {
+      response = r.data
+    }).catch(error => {
+      if (error.status === 404){
+        let err = new Error('404').message = 'not found'
+        throw err;
+      }
+      throw Object.assign(new Error(error));
+    })
+    return response
+  }
+
+  /**
+   * Axios request to add a comment to a article
+   * @param article
+   * @param comment
+   * @returns {Promise<*>}
+   */
   static async addComment(article, comment){
     comment['author'] = UserModule.getUserData().id;
     comment['replies'] = [];
@@ -125,6 +150,12 @@ class ArticlesModule {
     return response;
   }
 
+  /**
+   * Axios request to delete a comment of an article (does not delete the comment obj)
+   * @param article
+   * @param comment
+   * @returns {Promise<*>}
+   */
   static async deleteComment(article, comment){
     let response;
     article.comments = article.comments.filter(actComment => actComment.id !== comment.id);
@@ -141,6 +172,11 @@ class ArticlesModule {
   }
 }
 
+/**
+ * Returns the slug of an entry
+ * @param article
+ * @returns {string}
+ */
 function returnSlug(article){
   let str = article.title;
   str = str.replace(/^\s+|\s+$/g, ''); // trim
@@ -159,6 +195,11 @@ function returnSlug(article){
   return str;
 }
 
+/**
+ * Check if all basic fields of an article are not empty
+ * @param article
+ * @returns {{title}|*}
+ */
 function checkFields(article){
   if (!article.images) article.images = []
   if (!article.comments) article.comments = []

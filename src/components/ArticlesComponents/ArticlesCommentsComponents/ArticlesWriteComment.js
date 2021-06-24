@@ -21,7 +21,9 @@ class ArticlesWriteComment extends React.Component{
   state = {
     text: text[this.lang],
     article: this.props.article,
-    userInput: ''
+    userInput: '',
+    loading: false,
+    error: undefined
   }
 
   handleChange = (e) => {
@@ -29,8 +31,13 @@ class ArticlesWriteComment extends React.Component{
   }
 
   sendComment = () => {
-    ArticlesModule.addComment(this.state.article, {text: this.state.userInput}).then(r => {
-      this.props.reloadArticle(r)
+    this.setState({loading: true})
+    ArticlesModule.addComment(this.state.article, {text: this.state.userInput}).then(() => {
+      this.setState({loading: false})
+      this.props.refreshArticle()
+    }).catch(() => {
+      this.setState({loading: false})
+      this.setState({error: "Error while sending the comment."})
     })
   }
 
@@ -39,12 +46,14 @@ class ArticlesWriteComment extends React.Component{
   }
 
   render() {
-    const { text, userInput } = this.state;
+    const { text, userInput, error, loading } = this.state;
     return (
       <div>
         <input type='text' placeholder="here comment" onChange={this.handleChange} value={userInput}/>
+        {error ? <p>{error}</p> : undefined}
         <button onClick={this.sendComment}>Envoyer</button>
         <button onClick={this.resetInput}>Annuler</button>
+        {loading ? <p>Sending</p> : undefined}
       </div>
     );
   }
