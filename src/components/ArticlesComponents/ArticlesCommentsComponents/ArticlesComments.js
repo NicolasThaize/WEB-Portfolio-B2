@@ -2,7 +2,6 @@ import React from "react";
 import {UserContext} from "../../../context";
 import text from "../../../assets/texts/articles/comments.json";
 import ArticlesWriteComment from "./ArticlesWriteComment";
-import ArticlesListReplies from "./ArticlesListReplies";
 import ArticlesListComments from "./ArticlesListComments";
 
 class ArticlesComments extends React.Component{
@@ -29,8 +28,14 @@ class ArticlesComments extends React.Component{
     return (
       <div>
         <h2>Les commentaires: </h2>
-          <ArticlesWriteComment article={article} reloadArticle={this.reloadArticle}/>
-          <ArticlesListComments article={article} />
+        { 'comments' in article ?
+          <div>
+            <ArticlesWriteComment article={article} reloadArticle={this.reloadArticle}/>
+            <ArticlesListComments article={article}/>
+          </div>
+          : undefined
+        }
+
       </div>
     );
   }

@@ -1,7 +1,6 @@
 import React from "react";
-import {UserContext} from "../../../context";
-import text from "../../../assets/texts/articles/writeComment.json";
-import ArticlesWriteReply from "./ArticlesWriteReply";
+import {UserContext} from "../../../../context";
+import text from "../../../../assets/texts/articles/writeComment.json";
 
 
 class ArticlesListReplies extends React.Component{
@@ -12,6 +11,10 @@ class ArticlesListReplies extends React.Component{
       this.lang = this.context.language
       this.setState({text: text[this.context.language]})
     }
+  }
+
+  static getDerivedStateFromProps(props, state){
+    return state.replies = props.replies
   }
 
   state = {
@@ -25,8 +28,8 @@ class ArticlesListReplies extends React.Component{
       <div>
         Composant d'affichage des réponses
         { replies.map(reply => (
-          <div key={reply.id}>
-            {reply.reply_author.username} {reply.reply_text}
+          <div key={reply.id} style={{marginLeft: "10px"}}>
+            {reply.reply_author.username}: {reply.reply_text}
           </div>
         ))}
       </div>

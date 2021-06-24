@@ -1,8 +1,8 @@
 import React from "react";
 import {UserContext} from "../../../context";
 import text from "../../../assets/texts/articles/writeComment.json";
-import ArticlesListReplies from "./ArticlesListReplies";
-import ArticlesWriteReply from "./ArticlesWriteReply";
+import ArticlesListReplies from "./ArticlesRepliesComponents/ArticlesListReplies";
+import ArticlesWriteReply from "./ArticlesRepliesComponents/ArticlesWriteReply";
 import UserModule from "../../../UserModule";
 import ArticlesModule from "../../../ArticlesService";
 import ArticleCommentReplyDeleteValidation from "./ArticleCommentReplyDeleteValidation";
@@ -43,7 +43,6 @@ class ArticlesListComments extends React.Component{
   }
 
   deleteComment = async (comment) => {
-    console.log(comment)
     this.setState({deleteLoading: true})
     this.setState({error: undefined})
     await ArticlesModule.deleteComment(this.state.article, comment).then(r => {
@@ -53,6 +52,13 @@ class ArticlesListComments extends React.Component{
       this.setState({deleteLoading: false})
       this.setState({error: this.state.text.errors.error_delete})
     })
+  }
+
+  reloadComments = (newComment) => {
+    let newArticle = this.state.article
+    const commentIndex = newArticle.comments.findIndex(comment => comment.id === newComment.id)
+    newArticle.comments[commentIndex] = newComment
+    this.setState({article: newArticle})
   }
 
   render() {
@@ -75,7 +81,7 @@ class ArticlesListComments extends React.Component{
 
             {comment.author.username}: {comment.text}
             <ArticlesListReplies replies={comment.replies}/>
-            <ArticlesWriteReply article={article}/>
+            <ArticlesWriteReply article={article} comment={comment} reloadComments={this.reloadComments}/>
           </div>
         )) }
         { article.comments.length === 0 ? <p>{text.no_comments}</p> : undefined}
