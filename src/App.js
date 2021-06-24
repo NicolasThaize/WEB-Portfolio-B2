@@ -1,9 +1,8 @@
-import React from 'react'
-import {Helmet, HelmetProvider} from 'react-helmet-async';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
-import {UserContext} from './context';
-import './assets/css/global.min.css';
-
+import React from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { UserContext } from "./context";
+import "./assets/css/global.min.css";
 
 import Home from "./components/HomeComponents/Home";
 import Navbar from "./components/NavbarComponents/Navbar";
@@ -17,51 +16,58 @@ import axiosInstance from "./axiosApi";
 import ToggleLanguageButtons from "./components/ContextComponents/ToggleLanguageButtons";
 import UserModule from "./UserModule";
 
-
-
-class App extends React.Component{
-
+class App extends React.Component {
   /**
    * Set the language chosen, store info in localstorage
    * @param language
    */
   toggleLanguage = (language) => {
-    if (language === this.state.language){return;}
+    if (language === this.state.language) {
+      return;
+    }
     localStorage.setItem("nthaize_language", language);
     this.setState(() => ({
-      language: localStorage.getItem("nthaize_language")
-    }))
-  }
+      language: localStorage.getItem("nthaize_language"),
+    }));
+  };
 
   loginUser = (refresh, access) => {
-    axiosInstance.defaults.headers['Authorization'] = "JWT " + access;
-    localStorage.setItem('nthaize_access_token', access);
-    localStorage.setItem('nthaize_refresh_token', refresh);
-    this.setState({isLogged: true}, async () => {
+    axiosInstance.defaults.headers["Authorization"] = "JWT " + access;
+    localStorage.setItem("nthaize_access_token", access);
+    localStorage.setItem("nthaize_refresh_token", refresh);
+    this.setState({ isLogged: true }, async () => {
       const user = UserModule.getUserData();
-      await UserModule.verifyAdmin(user.id).then(r => {
-        if (r.code === 200) {this.setState({isAdmin: true})}
-      }).catch(() => {this.setState({isAdmin: false})})
+      await UserModule.verifyAdmin(user.id)
+        .then((r) => {
+          if (r.code === 200) {
+            this.setState({ isAdmin: true });
+          }
+        })
+        .catch(() => {
+          this.setState({ isAdmin: false });
+        });
     });
-  }
+  };
 
-  logoutUser = async () =>{
-    await axiosInstance.post('/blacklist/', {
-      "refresh_token": localStorage.getItem("nthaize_refresh_token")
+  logoutUser = async () => {
+    await axiosInstance.post("/blacklist/", {
+      refresh_token: localStorage.getItem("nthaize_refresh_token"),
     });
-    localStorage.removeItem('nthaize_access_token');
-    localStorage.removeItem('nthaize_refresh_token');
-    axiosInstance.defaults.headers['Authorization'] = null;
-    this.setState({isLogged: false});
-  }
+    localStorage.removeItem("nthaize_access_token");
+    localStorage.removeItem("nthaize_refresh_token");
+    axiosInstance.defaults.headers["Authorization"] = null;
+    this.setState({ isLogged: false });
+  };
 
   state = {
     isLogged: !!localStorage.getItem("nthaize_refresh_token"),
-    language: localStorage.getItem("nthaize_language") ? localStorage.getItem("nthaize_language") : 'fr',
+    language: localStorage.getItem("nthaize_language")
+      ? localStorage.getItem("nthaize_language")
+      : "fr",
     toggleLanguage: this.toggleLanguage,
     loginUser: this.loginUser,
-    logoutUser: this.logoutUser
-  }
+    logoutUser: this.logoutUser,
+  };
 
   /**
    * If the user is logged when comming on app sets isLogged if token is stored
@@ -70,46 +76,67 @@ class App extends React.Component{
    */
   componentDidMount() {
     const isLogged = !!localStorage.getItem("nthaize_refresh_token");
-    this.setState({isLogged: isLogged} , async () => {
-      if (this.state.isLogged){
+    this.setState({ isLogged: isLogged }, async () => {
+      if (this.state.isLogged) {
         const user = UserModule.getUserData();
-        await UserModule.verifyAdmin(user.id).then(r => {
-          if (r.code === 200) {this.setState({isAdmin: true})}
-        }).catch(() => {this.setState({isAdmin: false})})
+        await UserModule.verifyAdmin(user.id)
+          .then((r) => {
+            if (r.code === 200) {
+              this.setState({ isAdmin: true });
+            }
+          })
+          .catch(() => {
+            this.setState({ isAdmin: false });
+          });
       }
     });
   }
 
   render() {
     return (
-      <UserContext.Provider value={{...UserModule.getUserData(), ...this.state}}>
+      <UserContext.Provider
+        value={{ ...UserModule.getUserData(), ...this.state }}
+      >
         <Router>
           <HelmetProvider>
             <main>
               <Helmet>
                 {/*Tab Infos*/}
                 <title>Nicolas THAIZE</title>
-                <link rel="icon" href="/img/favicon.ico"/>
+                <link rel="icon" href="/img/favicon.ico" />
                 {/* SEO */}
-                <meta charSet="UTF-8"/>
-                <meta name="keywords" content="HTML, CSS, JavaScript, Nicolas, thaize, nicolasthaize, developer, web, bulma, wordpress, linux, development,React, Sass, Gulp"/>
-                <meta name="description" content="Nicolas THAIZE student in IT in PACA France."/>
-                <meta name="author" content="Nicolas THAIZE"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta charSet="UTF-8" />
+                <meta
+                  name="keywords"
+                  content="HTML, CSS, JavaScript, Nicolas, thaize, nicolasthaize, developer, web, bulma, wordpress, linux, development,React, Sass, Gulp"
+                />
+                <meta
+                  name="description"
+                  content="Nicolas THAIZE student in IT in PACA France."
+                />
+                <meta name="author" content="Nicolas THAIZE" />
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+                />
               </Helmet>
               <div className="App">
-                <Navbar/>
+                <Navbar />
                 <Route exact path="/" component={Home} />
 
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
 
                 <Route exact path="/articles" component={Articles} />
-                <Route exact path="/articles/:slug" component={ArticlesDetail} />
+                <Route
+                  exact
+                  path="/articles/:slug"
+                  component={ArticlesDetail}
+                />
 
                 <Route exact path="/admin" component={Admin} />
 
-                <ToggleLanguageButtons/>
+                <ToggleLanguageButtons />
               </div>
             </main>
           </HelmetProvider>

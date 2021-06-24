@@ -9,11 +9,14 @@ class ArticlesModule {
    */
   static async getAllArticles() {
     let response;
-    await axiosInstance.get('/articles/').then(r => {
-      response = r.data;
-    }).catch(error => {
-      throw Object.assign(new Error(error));
-    })
+    await axiosInstance
+      .get("/articles/")
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        throw Object.assign(new Error(error));
+      });
     return response;
   }
 
@@ -23,11 +26,14 @@ class ArticlesModule {
    */
   static async getAllPublicArticles() {
     let response;
-    await axiosInstance.get('/public_articles/').then(r => {
-      response = r.data;
-    }).catch(error => {
-      throw Object.assign(new Error(error));
-    })
+    await axiosInstance
+      .get("/public_articles/")
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        throw Object.assign(new Error(error));
+      });
     return response;
   }
 
@@ -39,14 +45,17 @@ class ArticlesModule {
    */
   static async updateArticle(id, values) {
     let response;
-    values = checkFields(values)
-    values.slug = returnSlug(values)
-    await axiosInstance.patch(`/articles/${id}/`, values).then(r => {
-      response = r.data
-    }).catch(error => {
-      throw Object.assign(new Error(error));
-    })
-    return response
+    values = checkFields(values);
+    values.slug = returnSlug(values);
+    await axiosInstance
+      .patch(`/articles/${id}/`, values)
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        throw Object.assign(new Error(error));
+      });
+    return response;
   }
 
   /**
@@ -54,14 +63,17 @@ class ArticlesModule {
    * @param article
    * @returns {Promise<*>}
    */
-  static async deleteArticle(article){
+  static async deleteArticle(article) {
     let response;
-    await axiosInstance.delete(`/articles/${article.id}/`).then(r => {
-      response = r.data
-    }).catch(error => {
-      throw Object.assign(new Error(error));
-    })
-    return response
+    await axiosInstance
+      .delete(`/articles/${article.id}/`)
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        throw Object.assign(new Error(error));
+      });
+    return response;
   }
 
   /**
@@ -69,18 +81,21 @@ class ArticlesModule {
    * @param article
    * @returns {Promise<*>}
    */
-  static async createArticle(article){
+  static async createArticle(article) {
     let response;
-    article.slug = returnSlug(article)
-    article.author = UserModule.getUserData().username
-    article = checkFields(article)
+    article.slug = returnSlug(article);
+    article.author = UserModule.getUserData().username;
+    article = checkFields(article);
 
-    await axiosInstance.post(`/articles/`, article).then(r => {
-      response = r.data
-    }).catch(error => {
-      throw Object.assign(new Error(error));
-    })
-    return response
+    await axiosInstance
+      .post(`/articles/`, article)
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        throw Object.assign(new Error(error));
+      });
+    return response;
   }
 
   /**
@@ -88,37 +103,43 @@ class ArticlesModule {
    * @param slug
    * @returns {Promise<void>}
    */
-  static async getArticleBySlug(slug){
+  static async getArticleBySlug(slug) {
     let response;
-    await axiosInstance.get(`/public_articles/${slug}/`).then(r => {
-      response = r.data
-    }).catch(error => {
-      if (error.status === 404){
-        let err = new Error('404').message = 'not found'
-        throw err;
-      }
-      throw Object.assign(new Error(error));
-    })
-    return response
+    await axiosInstance
+      .get(`/public_articles/${slug}/`)
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        if (error.status === 404) {
+          let err = (new Error("404").message = "not found");
+          throw err;
+        }
+        throw Object.assign(new Error(error));
+      });
+    return response;
   }
 
   /**
    * Axios request to get a specific article
-   * @param slug
    * @returns {Promise<void>}
+   * @param id
    */
-  static async getArticleById(id){
+  static async getArticleById(id) {
     let response;
-    await axiosInstance.get(`/articles/${id}/`).then(r => {
-      response = r.data
-    }).catch(error => {
-      if (error.status === 404){
-        let err = new Error('404').message = 'not found'
-        throw err;
-      }
-      throw Object.assign(new Error(error));
-    })
-    return response
+    await axiosInstance
+      .get(`/articles/${id}/`)
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((error) => {
+        if (error.status === 404) {
+          let err = (new Error("404").message = "not found");
+          throw err;
+        }
+        throw Object.assign(new Error(error));
+      });
+    return response;
   }
 
   /**
@@ -127,26 +148,33 @@ class ArticlesModule {
    * @param comment
    * @returns {Promise<*>}
    */
-  static async addComment(article, comment){
-    comment['author'] = UserModule.getUserData().id;
-    comment['replies'] = [];
+  static async addComment(article, comment) {
+    comment["author"] = UserModule.getUserData().id;
+    comment["replies"] = [];
     let response;
     let comments = [];
-    for (let comment of article.comments){
+    for (let comment of article.comments) {
       comments.push(comment.id);
     }
 
-    await CommentsService.createComment(comment).then(async r => {
-      comment = r;
-      comments.push(comment.id);
-      await axiosInstance.put(`/update/articles_comments/${article.id}/`, {comments: comments}).then(r => {
-        response = r.data;
-      }).catch(err => {
-        console.log(err)
+    await CommentsService.createComment(comment)
+      .then(async (r) => {
+        comment = r;
+        comments.push(comment.id);
+        await axiosInstance
+          .put(`/update/articles_comments/${article.id}/`, {
+            comments: comments,
+          })
+          .then((r) => {
+            response = r.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
-    }).catch(err => {
-      console.log(err)
-    })
+      .catch((err) => {
+        console.log(err);
+      });
     return response;
   }
 
@@ -156,18 +184,23 @@ class ArticlesModule {
    * @param comment
    * @returns {Promise<*>}
    */
-  static async deleteComment(article, comment){
+  static async deleteComment(article, comment) {
     let response;
-    article.comments = article.comments.filter(actComment => actComment.id !== comment.id);
+    article.comments = article.comments.filter(
+      (actComment) => actComment.id !== comment.id
+    );
     let commentsIds = [];
-    for (let comment of article.comments){
+    for (let comment of article.comments) {
       commentsIds.push(comment.id);
     }
-    await axiosInstance.put(`/articles/${article.id}/`, {comments: commentsIds}).then(r => {
-      response = r.data;
-    }).catch(err => {
-      console.log(err);
-    })
+    await axiosInstance
+      .put(`/articles/${article.id}/`, { comments: commentsIds })
+      .then((r) => {
+        response = r.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     return response;
   }
 }
@@ -177,21 +210,22 @@ class ArticlesModule {
  * @param article
  * @returns {string}
  */
-function returnSlug(article){
+function returnSlug(article) {
   let str = article.title;
-  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.replace(/^\s+|\s+$/g, ""); // trim
   str = str.toLowerCase();
 
   // remove accents, swap ñ for n, etc
   let from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
-  let to   = "aaaaeeeeiiiioooouuuunc------";
-  for (let i=0, l=from.length ; i<l ; i++) {
-    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  let to = "aaaaeeeeiiiioooouuuunc------";
+  for (let i = 0, l = from.length; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
   }
 
-  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-    .replace(/\s+/g, '-') // collapse whitespace and replace by -
-    .replace(/-+/g, '-'); // collapse dashes
+  str = str
+    .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+    .replace(/\s+/g, "-") // collapse whitespace and replace by -
+    .replace(/-+/g, "-"); // collapse dashes
   return str;
 }
 
@@ -200,14 +234,14 @@ function returnSlug(article){
  * @param article
  * @returns {{title}|*}
  */
-function checkFields(article){
-  if (!article.images) article.images = []
-  if (!article.comments) article.comments = []
-  if (!article.categories) article.categories = []
-  if (!article.sanitized_html) article.sanitized_html = ""
-  if (!article.title) article.title = ""
-  if (article.is_public === undefined) article.is_public = false
-  return article
+function checkFields(article) {
+  if (!article.images) article.images = [];
+  if (!article.comments) article.comments = [];
+  if (!article.categories) article.categories = [];
+  if (!article.sanitized_html) article.sanitized_html = "";
+  if (!article.title) article.title = "";
+  if (article.is_public === undefined) article.is_public = false;
+  return article;
 }
 
 export default ArticlesModule;

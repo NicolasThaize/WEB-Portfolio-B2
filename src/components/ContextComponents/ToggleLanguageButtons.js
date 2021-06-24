@@ -1,25 +1,20 @@
 import React from "react";
-import {UserContext} from "../../context";
+import { UserContext } from "../../context";
 
-class ToggleLanguageButtons extends React.Component{
+class ToggleLanguageButtons extends React.Component {
   static contextType = UserContext;
-
 
   render() {
     return (
       <div>
         <UserContext.Consumer>
-          {({toggleLanguage}) => (
-            <button onClick={() => toggleLanguage('en')}>
-              Anglais
-            </button>
+          {({ toggleLanguage }) => (
+            <button onClick={() => toggleLanguage("en")}>Anglais</button>
           )}
         </UserContext.Consumer>
         <UserContext.Consumer>
-          {({toggleLanguage}) => (
-            <button onClick={() => toggleLanguage('fr')}>
-              Francais
-            </button>
+          {({ toggleLanguage }) => (
+            <button onClick={() => toggleLanguage("fr")}>Francais</button>
           )}
         </UserContext.Consumer>
       </div>

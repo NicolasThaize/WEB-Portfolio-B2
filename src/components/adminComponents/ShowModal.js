@@ -1,14 +1,14 @@
 import React from "react";
-import {UserContext} from "../../context";
+import { UserContext } from "../../context";
 import "../../assets/css/modal.min.css";
 
-class ShowModal extends React.Component{
+class ShowModal extends React.Component {
   static contextType = UserContext;
 
   state = {
     selected: this.props.selected,
-    fields: this.props.fields
-  }
+    fields: this.props.fields,
+  };
 
   // Props explanation:
   // Full example of usage:
@@ -36,25 +36,38 @@ class ShowModal extends React.Component{
     return (
       <div id="myModal" className="modal">
         <div className="modal-content">
-          <span className="close" onClick={this.props.toggle}>&times;</span>
+          <span className="close" onClick={this.props.toggle}>
+            &times;
+          </span>
           <div>
             {fields.map((field, index) => {
-              if (field.name === 'categories') {
+              if (field.name === "categories") {
                 return (
                   <div key={index}>
-                    <p><strong>{field.label}</strong>
-                    { selected[field.name].map((select, index) => {
-                      return <span key={index}>{select.name}{index === selected[field.name].length-1 ? undefined : ','}</span>
-                    })}
+                    <p>
+                      <strong>{field.label}</strong>
+                      {selected[field.name].map((select, index) => {
+                        return (
+                          <span key={index}>
+                            {select.name}
+                            {index === selected[field.name].length - 1
+                              ? undefined
+                              : ","}
+                          </span>
+                        );
+                      })}
                     </p>
                   </div>
-                )
+                );
               } else {
                 return (
                   <div key={index}>
-                    <p><strong>{field.label}</strong>{selected[field.name].toString()}</p>
+                    <p>
+                      <strong>{field.label}</strong>
+                      {selected[field.name].toString()}
+                    </p>
                   </div>
-                )
+                );
               }
             })}
           </div>

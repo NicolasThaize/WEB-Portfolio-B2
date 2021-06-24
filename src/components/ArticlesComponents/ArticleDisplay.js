@@ -1,25 +1,25 @@
 import React from "react";
 import ArticlesComments from "./ArticlesCommentsComponents/ArticlesComments";
 import text from "../../assets/texts/articles/articles.json";
-import {UserContext} from "../../context";
+import { UserContext } from "../../context";
 
-class ArticleDisplay extends React.Component{
+class ArticleDisplay extends React.Component {
   static contextType = UserContext;
-  lang = this.context.language
+  lang = this.context.language;
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.context.language !== this.lang){
-      this.lang = this.context.language
-      this.setState({text: text[this.context.language]})
+    if (this.context.language !== this.lang) {
+      this.lang = this.context.language;
+      this.setState({ text: text[this.context.language] });
     }
   }
 
   state = {
     article: this.props.article,
-    text: text[this.lang]
-  }
+    text: text[this.lang],
+  };
 
-  static getDerivedStateFromProps(props, state){
-    return state.article = props.article
+  static getDerivedStateFromProps(props, state) {
+    return (state.article = props.article);
   }
 
   render() {
@@ -27,7 +27,10 @@ class ArticleDisplay extends React.Component{
     return (
       <div>
         {article.title}
-        <ArticlesComments article={article} refreshArticle={this.props.refreshArticle}/>
+        <ArticlesComments
+          article={article}
+          refreshArticle={this.props.refreshArticle}
+        />
       </div>
     );
   }

@@ -19,37 +19,37 @@
     },
     "fields": [
       {
-        "name":  "id",
-        "label":  "ID: "
+        "name": "id",
+        "label": "ID: "
       },
       {
-        "name":  "title",
-        "label":  "Titre: "
+        "name": "title",
+        "label": "Titre: "
       },
       {
-        "name":  "author",
-        "label":  "Auteur: "
+        "name": "author",
+        "label": "Auteur: "
       }
     ],
     "all_fields": [
       {
-        "name":  "title",
-        "label":  "Titre: ",
+        "name": "title",
+        "label": "Titre: ",
         "type": "text"
       },
       {
-        "name":  "sanitized_html",
-        "label":  "Apercu: ",
+        "name": "sanitized_html",
+        "label": "Apercu: ",
         "type": "editor"
       },
       {
-        "name":  "is_public",
-        "label":  "Est publique ?: ",
+        "name": "is_public",
+        "label": "Est publique ?: ",
         "type": "radio"
       },
       {
-        "name":  "categories",
-        "label":  "Catégories: ",
+        "name": "categories",
+        "label": "Catégories: ",
         "type": "categories"
       }
     ]
@@ -74,37 +74,37 @@
     },
     "fields": [
       {
-        "name":  "id",
-        "label":  "ID: "
+        "name": "id",
+        "label": "ID: "
       },
       {
-        "name":  "title",
-        "label":  "Title: "
+        "name": "title",
+        "label": "Title: "
       },
       {
-        "name":  "author",
-        "label":  "Author: "
+        "name": "author",
+        "label": "Author: "
       }
     ],
     "all_fields": [
       {
-        "name":  "title",
-        "label":  "Title: ",
+        "name": "title",
+        "label": "Title: ",
         "type": "text"
       },
       {
-        "name":  "sanitized_html",
-        "label":  "Peek: ",
+        "name": "sanitized_html",
+        "label": "Peek: ",
         "type": "editor"
       },
       {
-        "name":  "is_public",
-        "label":  "Is public ?: ",
+        "name": "is_public",
+        "label": "Is public ?: ",
         "type": "radio"
       },
       {
-        "name":  "categories",
-        "label":  "Categories: ",
+        "name": "categories",
+        "label": "Categories: ",
         "type": "categories"
       }
     ]

@@ -1,8 +1,8 @@
 import React from "react";
-import {UserContext} from "../../context";
+import { UserContext } from "../../context";
 import CrudButtons from "./CrudButtons";
 
-class Pagination extends React.Component{
+class Pagination extends React.Component {
   static contextType = UserContext;
 
   // Props explanation:
@@ -30,18 +30,17 @@ class Pagination extends React.Component{
   //     crud={{show: this.showFunc}}
   // />
 
-
   state = {
     objects: this.props.array,
     numberOfPages: 0,
     currentPage: 1,
     shownObjects: [],
-    fields: this.props.fields
-  }
+    fields: this.props.fields,
+  };
 
-  static getDerivedStateFromProps(props, state){
-    state.objects = props.array
-    return state.fields = props.fields
+  static getDerivedStateFromProps(props, state) {
+    state.objects = props.array;
+    return (state.fields = props.fields);
   }
 
   /**
@@ -51,71 +50,93 @@ class Pagination extends React.Component{
    * @param snapshot
    */
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.array !== this.state.objects){
-      let current = [], maxIndex = 5;
-      if (this.state.objects.length < 5) { // To avoid undefined index
-        maxIndex = this.state.objects.length
+    if (prevProps.array !== this.state.objects) {
+      let current = [],
+        maxIndex = 5;
+      if (this.state.objects.length < 5) {
+        // To avoid undefined index
+        maxIndex = this.state.objects.length;
       }
-      for (let index = 0; index < maxIndex; index++){
-        current.push(this.state.objects[index])
+      for (let index = 0; index < maxIndex; index++) {
+        current.push(this.state.objects[index]);
       }
       this.setState({
         shownObjects: current,
-        numberOfPages: Math.ceil(this.state.objects.length / 5)
-      })
+        numberOfPages: Math.ceil(this.state.objects.length / 5),
+      });
     }
   }
 
   componentDidMount() {
-    let current = [], maxIndex = 5;
-    if (this.state.objects.length < 5) { // To avoid undefined index
-      maxIndex = this.state.objects.length
+    let current = [],
+      maxIndex = 5;
+    if (this.state.objects.length < 5) {
+      // To avoid undefined index
+      maxIndex = this.state.objects.length;
     }
-    for (let index = 0; index < maxIndex; index++){
-      current.push(this.state.objects[index])
+    for (let index = 0; index < maxIndex; index++) {
+      current.push(this.state.objects[index]);
     }
 
     this.setState({
       shownObjects: current,
-      numberOfPages: Math.ceil(this.state.objects.length / 5)
-    })
+      numberOfPages: Math.ceil(this.state.objects.length / 5),
+    });
   }
 
   setArticlePages = (page = 1) => {
-    let current = [], maxIndex = page * 5;
-    if (this.state.objects[page*5] === undefined){
-      maxIndex = this.state.objects.length ;
+    let current = [],
+      maxIndex = page * 5;
+    if (this.state.objects[page * 5] === undefined) {
+      maxIndex = this.state.objects.length;
     }
     let index = page * 5 - 5;
-    for (index; index < maxIndex; index++){
-      current.push(this.state.objects[index])
+    for (index; index < maxIndex; index++) {
+      current.push(this.state.objects[index]);
     }
-    if (this.state.objects.length <= 5){
-      current = this.state.objects
+    if (this.state.objects.length <= 5) {
+      current = this.state.objects;
     }
-    this.setState({shownObjects: current})
-  }
+    this.setState({ shownObjects: current });
+  };
 
   render() {
     const { shownObjects, fields, numberOfPages } = this.state;
     const pages = new Array(numberOfPages).fill(0);
     return (
       <div>
-        {shownObjects.map(object => (
+        {shownObjects.map((object) => (
           <div key={object.id}>
-            { fields.map(field => (
-              <p key={object.id + field.name}>{field.label}{object[field.name]}</p>
+            {fields.map((field) => (
+              <p key={object.id + field.name}>
+                {field.label}
+                {object[field.name]}
+              </p>
             ))}
             <CrudButtons
-              showFunc={this.props.crud.show ? () => this.props.crud.show(object) : undefined}
-              modifyFunc={this.props.crud.modify ? () => this.props.crud.modify(object) : undefined}
-              deleteFunc={this.props.crud.delete ? () => this.props.crud.delete(object) : undefined}
+              showFunc={
+                this.props.crud.show
+                  ? () => this.props.crud.show(object)
+                  : undefined
+              }
+              modifyFunc={
+                this.props.crud.modify
+                  ? () => this.props.crud.modify(object)
+                  : undefined
+              }
+              deleteFunc={
+                this.props.crud.delete
+                  ? () => this.props.crud.delete(object)
+                  : undefined
+              }
             />
           </div>
         ))}
 
         {pages.map((page, index) => (
-          <button key={index} onClick={() => this.setArticlePages(index+1)}>{index + 1}</button>
+          <button key={index} onClick={() => this.setArticlePages(index + 1)}>
+            {index + 1}
+          </button>
         ))}
       </div>
     );

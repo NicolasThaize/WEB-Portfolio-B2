@@ -6,12 +6,12 @@
     "api_error": "Une erreur est survenue, elle sera résolue sous peu.",
     "user_not_activated": "Le compte est créé mais n'est pas activé, vérifiez vos mails.",
     "inputs": [
-       {
-         "id": 1,
-         "label": "Nom d'utilisateur: ",
-         "type": "text",
-         "placeholder": "Ex: Nthaize",
-         "name": "username"
+      {
+        "id": 1,
+        "label": "Nom d'utilisateur: ",
+        "type": "text",
+        "placeholder": "Ex: Nthaize",
+        "name": "username"
       },
       {
         "id": 2,

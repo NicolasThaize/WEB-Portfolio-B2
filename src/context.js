@@ -5,12 +5,11 @@ const UserContext = React.createContext({
   email: undefined,
   first_name: undefined,
   last_name: undefined,
-  language: 'en',
+  language: "en",
   isLogged: undefined,
   toggleLanguage: (language) => {},
   loginUser: (refresh, access) => {},
-  logoutUser: () => {}
-
-})
+  logoutUser: () => {},
+});
 
 export { UserContext };

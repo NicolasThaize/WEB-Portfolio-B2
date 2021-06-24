@@ -1,20 +1,19 @@
 import React from "react";
 
-class TextInput extends React.Component{
+class TextInput extends React.Component {
   state = {
     label: this.props.label,
     name: this.props.name,
     value: this.props.value,
-    onChange: this.props.handleChange
-  }
+    onChange: this.props.handleChange,
+  };
 
-  static getDerivedStateFromProps(props, state){
-    if (props.value === undefined){
-      return state.value = ''
+  static getDerivedStateFromProps(props, state) {
+    if (props.value === undefined) {
+      return (state.value = "");
     }
-    return state.value = props.value
+    return (state.value = props.value);
   }
-
 
   render() {
     const { label, name, value, onChange } = this.state;
@@ -22,7 +21,7 @@ class TextInput extends React.Component{
       <div>
         <label>
           {label}
-          <input value={value} type='text' name={name} onChange={onChange}/>
+          <input value={value} type="text" name={name} onChange={onChange} />
         </label>
       </div>
     );
