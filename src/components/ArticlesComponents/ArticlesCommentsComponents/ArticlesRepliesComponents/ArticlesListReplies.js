@@ -15,6 +15,13 @@ class ArticlesListReplies extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const value = UserModule.getUserData()
+      ? UserModule.getUserData().id
+      : undefined;
+    this.setState({ userId: value });
+  }
+
   static getDerivedStateFromProps(props, state) {
     return (state.comment = props.comment);
   }
@@ -22,7 +29,7 @@ class ArticlesListReplies extends React.Component {
   state = {
     text: text[this.lang],
     comment: this.props.comment,
-    userId: UserModule.getUserData().id,
+    userId: undefined,
     deleteValidation: false,
     wantedToDeleteReply: undefined,
     deleteLoading: false,

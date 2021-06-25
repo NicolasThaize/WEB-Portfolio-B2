@@ -24,12 +24,19 @@ class ArticlesListComments extends React.Component {
   state = {
     text: text[this.lang],
     article: this.props.article,
-    userId: UserModule.getUserData().id,
+    userId: undefined,
     error: undefined,
     deleteLoading: false,
     deleteValidation: false,
     wantedToDeleteComment: undefined,
   };
+
+  componentDidMount() {
+    const value = UserModule.getUserData()
+      ? UserModule.getUserData().id
+      : undefined;
+    this.setState({ userId: value });
+  }
 
   wantToDelete = (comment) => {
     this.setState({ wantedToDeleteComment: comment, deleteValidation: true });
@@ -96,11 +103,13 @@ class ArticlesListComments extends React.Component {
               comment={comment}
               refreshArticle={this.props.refreshArticle}
             />
-            <ArticlesWriteReply
-              article={article}
-              comment={comment}
-              refreshArticle={this.props.refreshArticle}
-            />
+            {this.context.isLogged ? (
+              <ArticlesWriteReply
+                article={article}
+                comment={comment}
+                refreshArticle={this.props.refreshArticle}
+              />
+            ) : undefined}
           </div>
         ))}
         {article.comments.length === 0 ? <p>{text.no_comments}</p> : undefined}

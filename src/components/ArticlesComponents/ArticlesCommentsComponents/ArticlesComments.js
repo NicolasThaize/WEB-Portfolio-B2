@@ -30,10 +30,14 @@ class ArticlesComments extends React.Component {
         <h2>Les commentaires: </h2>
         {"comments" in article ? (
           <div>
-            <ArticlesWriteComment
-              article={article}
-              refreshArticle={this.props.refreshArticle}
-            />
+            {this.context.isLogged ? (
+              <ArticlesWriteComment
+                article={article}
+                refreshArticle={this.props.refreshArticle}
+              />
+            ) : (
+              <p>You need to log in to post comments an replies.</p>
+            )}
             <ArticlesListComments
               article={article}
               refreshArticle={this.props.refreshArticle}
