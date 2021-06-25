@@ -18,22 +18,27 @@ class Articles extends React.Component {
     text: text[this.lang],
     articles: [],
     error: "",
+    loading: false
   };
   async componentDidMount() {
+    this.setState({loading: true})
     ArticlesModule.getAllPublicArticles()
       .then((r) => {
+        this.setState({loading: false})
         this.setState({ articles: r });
       })
       .catch(() => {
+        this.setState({loading: false})
         this.setState({ error: this.state.text.errors.retreviewing_articles });
       });
   }
 
   render() {
-    const { error, articles } = this.state;
+    const { error, articles, loading } = this.state;
     return (
       <div>
         {error ? <p>{error}</p> : undefined}
+        {loading ? <p>Loading</p> : undefined}
         {articles.map((article) => (
           <div key={article.id}>
             <ArticleBox article={article} />

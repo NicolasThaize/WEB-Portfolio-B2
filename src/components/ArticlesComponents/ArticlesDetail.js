@@ -20,6 +20,7 @@ class ArticlesDetail extends React.Component {
     article: {},
     error: "",
     redirect: false,
+    loading: false
   };
 
   async componentDidMount() {
@@ -37,22 +38,25 @@ class ArticlesDetail extends React.Component {
   }
 
   refreshArticle = async () => {
+    this.setState({loading: true})
     const article = await ArticlesModule.getArticleById(
       this.state.article.id
     ).catch((error) => {
+      this.setState({loading: false})
       if (error === "not found") {
         return this.setState({ redirect: true });
       }
       this.setState({ error: error });
     });
-    this.setState({ article: article });
+    this.setState({ article: article, loading: false });
   };
 
   render() {
-    const { text, article, redirect } = this.state;
+    const { text, article, redirect, loading } = this.state;
     return (
       <div>
         {redirect ? <Redirect to={"/articles/"} /> : undefined}
+        { loading ? <p>Loading</p> : undefined}
         {"id" in article ? (
           <ArticleDisplay
             article={article}

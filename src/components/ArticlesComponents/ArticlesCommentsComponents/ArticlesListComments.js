@@ -59,13 +59,8 @@ class ArticlesListComments extends React.Component {
       });
   };
 
-  reloadComments = (newComment) => {
-    let newArticle = this.state.article;
-    const commentIndex = newArticle.comments.findIndex(
-      (comment) => comment.id === newComment.id
-    );
-    newArticle.comments[commentIndex] = newComment;
-    this.setState({ article: newArticle });
+  reloadComments = () => {
+    this.props.refreshArticle()
   };
 
   render() {
