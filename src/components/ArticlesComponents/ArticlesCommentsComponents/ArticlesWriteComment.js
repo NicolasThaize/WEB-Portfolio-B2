@@ -35,7 +35,7 @@ class ArticlesWriteComment extends React.Component {
       text: this.state.userInput,
     })
       .then(() => {
-        this.setState({ loading: false });
+        this.setState({ loading: false, userInput: "" });
         this.props.refreshArticle();
       })
       .catch(() => {

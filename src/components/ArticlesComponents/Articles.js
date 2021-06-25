@@ -18,17 +18,17 @@ class Articles extends React.Component {
     text: text[this.lang],
     articles: [],
     error: "",
-    loading: false
+    loading: false,
   };
   async componentDidMount() {
-    this.setState({loading: true})
+    this.setState({ loading: true });
     ArticlesModule.getAllPublicArticles()
       .then((r) => {
-        this.setState({loading: false})
+        this.setState({ loading: false });
         this.setState({ articles: r });
       })
       .catch(() => {
-        this.setState({loading: false})
+        this.setState({ loading: false });
         this.setState({ error: this.state.text.errors.retreviewing_articles });
       });
   }

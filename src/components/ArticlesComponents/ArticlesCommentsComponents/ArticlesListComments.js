@@ -57,10 +57,11 @@ class ArticlesListComments extends React.Component {
         this.setState({ deleteLoading: false });
         this.setState({ error: this.state.text.errors.error_delete });
       });
+    this.reloadComments();
   };
 
   reloadComments = () => {
-    this.props.refreshArticle()
+    this.props.refreshArticle();
   };
 
   render() {
