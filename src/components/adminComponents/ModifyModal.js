@@ -5,6 +5,35 @@ import { Editor } from "@tinymce/tinymce-react";
 import TextInput from "./TextInput";
 import RadioTrueFalseInput from "./RadioTrueFalseInput";
 import MultipleSelectInput from "./MultipleSelectInput";
+import ImageService from "../../ImageService";
+import tinymce from "tinymce/tinymce";
+// Theme
+import "tinymce/themes/silver";
+// Toolbar icons
+import "tinymce/icons/default";
+// Editor styles
+import "tinymce/skins/ui/oxide/skin.min.css";
+
+// importing the plugin js.
+import "tinymce/plugins/advlist";
+import "tinymce/plugins/autolink";
+import "tinymce/plugins/link";
+import "tinymce/plugins/image";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/charmap";
+import "tinymce/plugins/hr";
+import "tinymce/plugins/anchor";
+import "tinymce/plugins/spellchecker";
+import "tinymce/plugins/searchreplace";
+import "tinymce/plugins/wordcount";
+import "tinymce/plugins/code";
+import "tinymce/plugins/fullscreen";
+import "tinymce/plugins/insertdatetime";
+import "tinymce/plugins/media";
+import "tinymce/plugins/nonbreaking";
+import "tinymce/plugins/table";
+import "tinymce/plugins/template";
+import "tinymce/plugins/help";
 
 class ShowModal extends React.Component {
   static contextType = UserContext;
@@ -108,6 +137,13 @@ class ShowModal extends React.Component {
                       init={{
                         height: 500,
                         menubar: false,
+                        file_picker_types: "image",
+                        image_title: true,
+                        convert_urls: false,
+                        images_upload_url: "http://127.0.0.1:8000/images/",
+                        images_upload_credentials: true,
+                        file_picker_callback: handleFilePick,
+                        images_upload_handler: handleFileUpload,
                         plugins: [
                           "advlist autolink lists link image",
                           "charmap print preview anchor help",
@@ -117,7 +153,7 @@ class ShowModal extends React.Component {
                         toolbar:
                           "undo redo | formatselect | bold italic |" +
                           "alignleft aligncenter alignright | " +
-                          "bullist numlist outdent indent | help",
+                          "bullist numlist outdent indent | link image | help",
                       }}
                       onBlur={(e) => this.handleEditorChange(e, field.name)}
                     />
@@ -192,3 +228,35 @@ class ShowModal extends React.Component {
 }
 
 export default ShowModal;
+
+function handleFilePick(cb, value, meta) {
+  let input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.setAttribute("accept", "image/*");
+  input.onchange = function () {
+    let file = this.files[0];
+    let reader = new FileReader();
+    reader.onload = function () {
+      let id = "blobid" + new Date().getTime();
+      let blobCache = tinymce.activeEditor.editorUpload.blobCache;
+      let base64 = reader.result.split(",")[1];
+      let blobInfo = blobCache.create(id, file, base64);
+      blobCache.add(blobInfo);
+      cb(blobInfo.blobUri(), { title: file.name });
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+function handleFileUpload(blobInfo, success, failure, progress) {
+  let formData = new FormData();
+  formData.append("image", blobInfo.blob());
+  ImageService.uploadImage(formData, "tyest", "wila")
+    .then((r) => {
+      success(r.image);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
