@@ -128,7 +128,7 @@ class AdminArticle extends React.Component {
     if (
       !article.title ||
       !article.sanitized_html ||
-      !article.is_public ||
+      article.is_public === undefined ||
       !article.categories
     ) {
       return this.setState({ subErrors: this.state.text.errors.empty_fields });
