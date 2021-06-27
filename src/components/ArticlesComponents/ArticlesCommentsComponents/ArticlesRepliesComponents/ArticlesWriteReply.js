@@ -14,6 +14,7 @@ class ArticlesWriteReply extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
+    state.comment = props.comment;
     return (state.article = props.article);
   }
 
