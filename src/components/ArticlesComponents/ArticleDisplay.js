@@ -27,6 +27,11 @@ class ArticleDisplay extends React.Component {
     return (
       <div>
         {article.title}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: article.sanitized_html,
+          }}
+        />
         <ArticlesComments
           article={article}
           refreshArticle={this.props.refreshArticle}
