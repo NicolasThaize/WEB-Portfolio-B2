@@ -15,6 +15,7 @@ import ArticlesDetail from "./components/ArticlesComponents/ArticlesDetail";
 import axiosInstance from "./axiosApi";
 import ToggleLanguageButtons from "./components/ContextComponents/ToggleLanguageButtons";
 import UserModule from "./UserModule";
+import Contact from "./components/ContactComponents/Contact";
 
 class App extends React.Component {
   /**
@@ -128,6 +129,7 @@ class App extends React.Component {
                 <Route exact path="/register" component={Register} />
 
                 <Route exact path="/articles" component={Articles} />
+                <Route exact path="/contact" component={Contact} />
                 <Route
                   exact
                   path="/articles/:slug"
