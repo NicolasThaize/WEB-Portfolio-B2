@@ -8,7 +8,8 @@
         "title": "Prénom",
         "placeholder": "Ex: Nicolas",
         "type": "text",
-        "value": ""
+        "value": "",
+        "error": ""
       },
       {
         "id": 2,
@@ -16,7 +17,8 @@
         "title": "Nom",
         "placeholder": "Ex: THAIZE",
         "type": "text",
-        "value": ""
+        "value": "",
+        "error": ""
       },
       {
         "id": 3,
@@ -24,9 +26,14 @@
         "title": "Message",
         "placeholder": "Ex: Bonjour...",
         "type": "textarea",
-        "value": ""
+        "value": "",
+        "error": ""
       }
-    ]
+    ],
+    "button_send": "Envoyer",
+    "errors": {
+      "field_not_filled": "Ce champ doit être rempli."
+    }
   },
   "en": {
     "main_title": "Contact me",
@@ -37,7 +44,8 @@
         "title": "First name",
         "placeholder": "Ex: Nicolas",
         "type": "text",
-        "value": ""
+        "value": "",
+        "error": ""
       },
       {
         "id": 2,
@@ -45,7 +53,8 @@
         "title": "Last name",
         "placeholder": "Ex: THAIZE",
         "type": "text",
-        "value": ""
+        "value": "",
+        "error": ""
       },
       {
         "id": 3,
@@ -53,8 +62,13 @@
         "title": "Message",
         "placeholder": "Ex: Hello...",
         "type": "textarea",
-        "value": ""
+        "value": "",
+        "error": ""
       }
-    ]
+    ],
+    "button_send": "Send",
+    "errors": {
+      "field_not_filled": "This field must be filled."
+    }
   }
 }
