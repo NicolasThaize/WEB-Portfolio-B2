@@ -20,8 +20,8 @@ class Contact extends React.Component {
   render() {
     const { text } = this.state;
     return <div>
-      contact
-      <ContactForm/>
+      {text.main_title}
+      <ContactForm inputs={text.inputs}/>
     </div>;
   }
 }

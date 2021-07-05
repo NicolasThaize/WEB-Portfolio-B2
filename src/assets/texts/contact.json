@@ -1,4 +1,60 @@
 {
-  "fr": {},
-  "en": {}
+  "fr": {
+    "main_title": "Me contacter",
+    "inputs": [
+      {
+        "id": 1,
+        "name": "first_name",
+        "title": "Prénom",
+        "placeholder": "Ex: Nicolas",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "id": 2,
+        "name": "last_name",
+        "title": "Nom",
+        "placeholder": "Ex: THAIZE",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "id": 3,
+        "name": "message",
+        "title": "Message",
+        "placeholder": "Ex: Bonjour...",
+        "type": "textarea",
+        "value": ""
+      }
+    ]
+  },
+  "en": {
+    "main_title": "Contact me",
+    "inputs": [
+      {
+        "id": 1,
+        "name": "first_name",
+        "title": "First name",
+        "placeholder": "Ex: Nicolas",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "id": 2,
+        "name": "last_name",
+        "title": "Last name",
+        "placeholder": "Ex: THAIZE",
+        "type": "text",
+        "value": ""
+      },
+      {
+        "id": 3,
+        "name": "message",
+        "title": "Message",
+        "placeholder": "Ex: Hello...",
+        "type": "textarea",
+        "value": ""
+      }
+    ]
+  }
 }
