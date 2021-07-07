@@ -28,6 +28,15 @@
         "type": "textarea",
         "value": "",
         "error": ""
+      },
+      {
+        "id": 4,
+        "name": "email",
+        "title": "Email",
+        "placeholder": "Ex: nicolasthaize@example.com",
+        "type": "email",
+        "value": "",
+        "error": ""
       }
     ],
     "button_send": "Envoyer",
@@ -62,6 +71,15 @@
         "title": "Message",
         "placeholder": "Ex: Hello...",
         "type": "textarea",
+        "value": "",
+        "error": ""
+      },
+      {
+        "id": 4,
+        "name": "email",
+        "title": "Email",
+        "placeholder": "Ex: nicolasthaize@example.com",
+        "type": "email",
         "value": "",
         "error": ""
       }

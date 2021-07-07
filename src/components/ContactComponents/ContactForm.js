@@ -2,6 +2,8 @@ import React from "react";
 import { UserContext } from "../../context";
 import ContactInput from "./ContactInput";
 import text from "../../assets/texts/contact.json";
+import ContactService from "../../ContactService";
+import {Redirect} from "react-router-dom";
 
 class ContactForm extends React.Component {
   static contextType = UserContext;
@@ -16,7 +18,9 @@ class ContactForm extends React.Component {
   state = {
     text: text[this.lang],
     inputs: this.props.inputs,
-    error: undefined
+    error: undefined,
+    redirect: false,
+    isSuccess: false
   };
 
   /**
@@ -52,12 +56,26 @@ class ContactForm extends React.Component {
 
       values[input.name] = input.value;
     })
+    ContactService.sendContactEmail(values).then(r => {
+      this.setState({isSuccess: true})
+      setTimeout(() => {
+        this.setState({
+          redirect: true
+        })
+      }, 4000);
+    }).catch(err => {
+
+    });
   }
 
   render() {
-    const { text, inputs, error } = this.state;
-    const areFieldsFilled = inputs.filter(input => input.value !== "").length === 3;
+    const { text, inputs, error, isSuccess, redirect } = this.state;
+    const areFieldsFilled = inputs.filter(input => input.value !== "").length === inputs.length;
+    if (redirect){
+      return <Redirect to='/'/>
+    }
     return <div>
+      { isSuccess ? <p>Message bien envoyé, vous allez être redirigé</p> : undefined }
       form
       { inputs.map(input => {
         return <ContactInput
