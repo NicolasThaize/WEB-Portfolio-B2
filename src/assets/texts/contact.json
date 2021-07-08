@@ -22,6 +22,15 @@
       },
       {
         "id": 3,
+        "name": "subject",
+        "title": "Sujet",
+        "placeholder": "Ex: Site web",
+        "type": "text",
+        "value": "",
+        "error": ""
+      },
+      {
+        "id": 4,
         "name": "message",
         "title": "Message",
         "placeholder": "Ex: Bonjour...",
@@ -30,7 +39,7 @@
         "error": ""
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "email",
         "title": "Email",
         "placeholder": "Ex: nicolasthaize@example.com",
@@ -41,7 +50,8 @@
     ],
     "button_send": "Envoyer",
     "errors": {
-      "field_not_filled": "Ce champ doit être rempli."
+      "field_not_filled": "Ce champ doit être rempli.",
+      "email_sending_fail": "Une erreur est survenur lors de l'envoi de l'email."
     }
   },
   "en": {
@@ -67,6 +77,15 @@
       },
       {
         "id": 3,
+        "name": "subject",
+        "title": "Subject",
+        "placeholder": "Ex: Website",
+        "type": "text",
+        "value": "",
+        "error": ""
+      },
+      {
+        "id": 4,
         "name": "message",
         "title": "Message",
         "placeholder": "Ex: Hello...",
@@ -75,7 +94,7 @@
         "error": ""
       },
       {
-        "id": 4,
+        "id": 5,
         "name": "email",
         "title": "Email",
         "placeholder": "Ex: nicolasthaize@example.com",
@@ -86,7 +105,8 @@
     ],
     "button_send": "Send",
     "errors": {
-      "field_not_filled": "This field must be filled."
+      "field_not_filled": "This field must be filled.",
+      "email_sending_fail": "An error occured while sending the email."
     }
   }
 }

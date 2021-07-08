@@ -4,6 +4,7 @@ import ContactInput from "./ContactInput";
 import text from "../../assets/texts/contact.json";
 import ContactService from "../../ContactService";
 import {Redirect} from "react-router-dom";
+import EmailSuccess from "./EmailSuccess";
 
 class ContactForm extends React.Component {
   static contextType = UserContext;
@@ -64,7 +65,7 @@ class ContactForm extends React.Component {
         })
       }, 4000);
     }).catch(err => {
-
+      this.setState({error: this.state.text.errors.email_sending_fail})
     });
   }
 
@@ -74,6 +75,11 @@ class ContactForm extends React.Component {
     if (redirect){
       return <Redirect to='/'/>
     }
+
+    if (isSuccess){
+      return <EmailSuccess/>
+    }
+
     return <div>
       { isSuccess ? <p>Message bien envoyé, vous allez être redirigé</p> : undefined }
       form
