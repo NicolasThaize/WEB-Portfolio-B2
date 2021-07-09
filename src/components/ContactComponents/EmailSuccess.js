@@ -1,6 +1,6 @@
 import React from "react";
 import { UserContext } from "../../context";
-import text from "../../assets/texts/navbar.json";
+import text from "../../assets/texts/contact.json";
 
 class EmailSuccess extends React.Component {
   static contextType = UserContext;

@@ -51,7 +51,7 @@
     "button_send": "Envoyer",
     "errors": {
       "field_not_filled": "Ce champ doit être rempli.",
-      "email_sending_fail": "Une erreur est survenur lors de l'envoi de l'email."
+      "email_sending_fail": "Une erreur est survenue lors de l'envoi de l'email."
     }
   },
   "en": {

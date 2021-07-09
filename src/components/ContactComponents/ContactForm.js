@@ -54,8 +54,7 @@ class ContactForm extends React.Component {
   sendMessage = () => {
     let values = {};
     this.state.inputs.map(input => {
-
-      values[input.name] = input.value;
+      return values[input.name] = input.value;
     })
     ContactService.sendContactEmail(values).then(r => {
       this.setState({isSuccess: true})
@@ -81,7 +80,6 @@ class ContactForm extends React.Component {
     }
 
     return <div>
-      { isSuccess ? <p>Message bien envoyé, vous allez être redirigé</p> : undefined }
       form
       { inputs.map(input => {
         return <ContactInput
